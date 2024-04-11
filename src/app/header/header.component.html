@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <span class="mt-1">MaBills<i class="bi bi-currency-bitcoin"></i></span>
+  <button [matMenuTriggerFor]="loginRegisterMenu" mat-icon-button *ngIf="!userAuthenticated">
+    <i class="bi bi-person-fill"></i>
+  </button>
+</mat-toolbar>
+
+<mat-menu #loginRegisterMenu="matMenu">
+  <button mat-menu-item routerLink="login">Login</button>
+  <button mat-menu-item routerLink="register">Register</button>
+</mat-menu>
