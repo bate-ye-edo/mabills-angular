@@ -1,0 +1,6 @@
+.register-card{
+  max-width: var(--login-register-card-width);
+}
+mat-error {
+  display: block;
+}

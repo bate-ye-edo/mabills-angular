@@ -24,6 +24,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "jwt-decode": "^4.0.0",
     "node": "^18.20.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

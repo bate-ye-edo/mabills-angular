@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import {AuthService} from '@core/auth.service';
+import {AuthService} from '@core/authentication/auth.service';
 import {HttpService} from '@core/http.service';
-import {TokenInterceptor} from '@core/token.interceptor';
-import { BillsComponent } from '../bills/bills.component';
+import {TokenInterceptor} from '@core/authentication/token.interceptor';
+import {LoadingComponent} from "@core/loading/loading.component";
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { BillsComponent } from '../bills/bills.component';
     }
   ],
   declarations: [
-    BillsComponent
+    LoadingComponent
   ],
 })
 export class CoreModule {

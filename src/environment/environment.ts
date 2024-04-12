@@ -1,4 +1,6 @@
 
 export const ENVIRONMENT = {
-  SERVICE: 'http://localhost:8081'
+  SERVICE: 'http://localhost:8081',
+  SECONDS_FOR_REFRESH_TOKEN: 60,
+  MILLISECONDS_FOR_REFRESH_TOKEN: 60000,
 }

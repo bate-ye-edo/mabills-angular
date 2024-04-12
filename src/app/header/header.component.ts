@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService} from "@core/auth.service";
+import {AuthService} from "@core/authentication/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -16,5 +16,9 @@ export class HeaderComponent {
     this.auth.authenticatedObservable.subscribe({
         next: authenticated => this.userAuthenticated = authenticated
     });
+  }
+
+  logout(): void {
+    this.auth.logout();
   }
 }

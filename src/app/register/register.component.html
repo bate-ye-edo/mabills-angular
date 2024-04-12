@@ -1,1 +1,41 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1 class="text-center">Register <i class="bi bi-person-fill-add"></i></h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form >
+        <mat-form-field class="w-100">
+          <mat-label>Username</mat-label>
+          <input matInput required [formControl]="usernameFormControl">
+          <mat-error *ngIf="usernameFormControl.hasError('required')">Username is required</mat-error>
+          <mat-error *ngIf="usernameFormControl.hasError('minlength')">The username should have at least 4 characters</mat-error>
+          <mat-error *ngIf="usernameFormControl.hasError('pattern')">Username can only contain alphanumeric characters with this format: 'user.name'</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [formControl]="passwordFormControl" required>
+          <mat-error *ngIf="passwordFormControl.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('minlength')">The password should have at least 6 characters</mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('maxlength')">The password should have at most 16 characters</mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('pattern')">It should have 1 capital letter, 1 lowercase letter, 1 special character and 1 number</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [formControl]="emailFormControl" required>
+          <mat-error *ngIf="emailFormControl.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('email')">Email format is incorrect</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Mobile</mat-label>
+          <input matInput [formControl]="mobileFormControl" required>
+          <mat-error *ngIf="mobileFormControl.hasError('required')">Mobile is required</mat-error>
+          <mat-error *ngIf="mobileFormControl.hasError('pattern')">Mobile should only contain numbers</mat-error>
+        </mat-form-field>
+        <button mat-raised-button class="btn btn-primary" [disabled]="inputsHaveErrors()" (click)="register()">Register</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

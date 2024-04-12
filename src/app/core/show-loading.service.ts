@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {LoadingComponent} from "../shared/components/loading/loading.component";
-// TODO: implement this loading service in each http call.
+import {LoadingComponent} from "@core/loading/loading.component";
+
 @Injectable({
   providedIn: 'root'
 })

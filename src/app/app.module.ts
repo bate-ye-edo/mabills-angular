@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {TokenInterceptor} from "@core/token.interceptor";
+import {TokenInterceptor} from "@core/authentication/token.interceptor";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,8 +15,12 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from "@angular/forms";
-import { LoadingComponent } from './shared/components/loading/loading.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,7 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    LoadingComponent
+    TwoChoicesModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,12 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     MatButtonModule,
     MatIconModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTooltipModule
   ],
   providers: [TokenInterceptor],
   bootstrap: [AppComponent]

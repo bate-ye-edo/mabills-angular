@@ -1,7 +1,10 @@
 <mat-toolbar color="primary">
-  <span class="mt-1">MaBills<i class="bi bi-currency-bitcoin"></i></span>
+  <span class="mt-1 brand">MaBills<i class="bi bi-currency-bitcoin"></i></span>
   <button [matMenuTriggerFor]="loginRegisterMenu" mat-icon-button *ngIf="!userAuthenticated">
     <i class="bi bi-person-fill"></i>
+  </button>
+  <button mat-icon-button *ngIf="userAuthenticated" (click)="logout()" matTooltip="Log Out">
+    <i class="bi bi-box-arrow-right"></i>
   </button>
 </mat-toolbar>
 

@@ -5,6 +5,7 @@ import {EMPTY, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Error} from "@core/error.model";
+import {ShowLoadingService} from "@core/show-loading.service";
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class HttpService {
   private errorNotification: string = undefined;
   private showErrors: boolean = true;
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router,
+              private showLoadingService: ShowLoadingService) {
     this.resetOptions();
   }
 
@@ -53,6 +55,7 @@ export class HttpService {
   }
 
   post(endpoint: string, body?: object): Observable<any> {
+    this.showLoadingService.showLoadingPage();
     return this.http
       .post(endpoint, body, this.createOptions())
       .pipe(
@@ -62,6 +65,7 @@ export class HttpService {
   }
 
   get(endpoint: string): Observable<any> {
+    this.showLoadingService.showLoadingPage();
     return this.http
       .get(endpoint, this.createOptions())
       .pipe(
@@ -71,6 +75,7 @@ export class HttpService {
   }
 
   put(endpoint: string, body?: object): Observable<any> {
+    this.showLoadingService.showLoadingPage();
     return this.http
       .put(endpoint, body, this.createOptions())
       .pipe(
@@ -80,6 +85,7 @@ export class HttpService {
   }
 
   patch(endpoint: string, body?: object): Observable<any> {
+    this.showLoadingService.showLoadingPage();
     return this.http
       .patch(endpoint, body, this.createOptions())
       .pipe(
@@ -89,6 +95,7 @@ export class HttpService {
   }
 
   delete(endpoint: string): Observable<any> {
+    this.showLoadingService.showLoadingPage();
     return this.http
       .delete(endpoint, this.createOptions())
       .pipe(
@@ -121,6 +128,7 @@ export class HttpService {
   }
 
   private extractData(response: any): any {
+    this.showLoadingService.hideLoadingPage();
     if (this.successfulNotification) {
       this.snackBar.open(this.successfulNotification, '', {
         duration: 2000
@@ -147,6 +155,7 @@ export class HttpService {
   }
 
   private handleError(response: any): any {
+    this.showLoadingService.hideLoadingPage();
     let error: Error;
     if (response.status === HttpService.UNAUTHORIZED) {
       this.showError('Unauthorized');
