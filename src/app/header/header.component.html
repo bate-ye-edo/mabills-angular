@@ -3,6 +3,12 @@
   <button [matMenuTriggerFor]="loginRegisterMenu" mat-icon-button *ngIf="!userAuthenticated">
     <i class="bi bi-person-fill"></i>
   </button>
+  <div *ngIf="userAuthenticated" class="d-flex flex-row">
+    <button mat-icon-button matTooltip="Expenses Categories"
+      (click)="openExpensesCategoriesModal()">
+      <i class="bi bi-tag-fill"></i>
+    </button>
+  </div>
   <button mat-icon-button *ngIf="userAuthenticated" (click)="logout()" matTooltip="Log Out">
     <i class="bi bi-box-arrow-right"></i>
   </button>

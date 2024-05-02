@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import {AuthService} from "@core/authentication/auth.service";
+import {ShowModalService} from "../shared/show-modal.service";
+import {
+  ExpensesCategoriesComponent
+} from "../expenses-categories/expenses-categories.component";
+import {NO_BACK_DROP_MODAL} from "../shared/ModalOptions";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +13,7 @@ import {AuthService} from "@core/authentication/auth.service";
 })
 export class HeaderComponent {
   userAuthenticated: boolean;
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private showModalService: ShowModalService) {
     this.subscribeAuthenticated();
   }
 
@@ -20,5 +25,9 @@ export class HeaderComponent {
 
   logout(): void {
     this.auth.logout();
+  }
+
+  openExpensesCategoriesModal() {
+    this.showModalService.showModal(ExpensesCategoriesComponent, NO_BACK_DROP_MODAL);
   }
 }

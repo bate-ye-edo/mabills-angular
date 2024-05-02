@@ -9,9 +9,12 @@ import {User} from "@core/authentication/user.model";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  static PASSWORD_PATTERN: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,@!$%*?&])[A-Za-z0-9.,@!$%*?&]{6,}$';
-  static MOBILE_PATTERN: string = '[0-9]+';
-  static USERNAME_PATTERN: string = '^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,1}$';
+  static readonly PASSWORD_PATTERN: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,@!$%*?&])[A-Za-z0-9.,@!$%*?&]{6,}$';
+  static readonly MOBILE_PATTERN: string = '[0-9]+';
+  static readonly USERNAME_PATTERN: string = '^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,1}$';
+  static readonly PASSWORD_MIN_LENGTH: number = 6;
+  static readonly PASSWORD_MAX_LENGTH: number = 16;
+  static readonly USERNAME_MIN_LENGTH: number = 4;
   usernameFormControl: FormControl;
   passwordFormControl: FormControl;
   emailFormControl: FormControl;
@@ -49,15 +52,15 @@ export class RegisterComponent implements OnInit {
   private initUsernameFormControl(): void {
     this.usernameFormControl = new FormControl('', [
       Validators.required,
-      Validators.minLength(4),
+      Validators.minLength(RegisterComponent.USERNAME_MIN_LENGTH),
       Validators.pattern(RegisterComponent.USERNAME_PATTERN)]);
   }
 
   private initPasswordFormControl(): void {
     this.passwordFormControl = new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(16),
+      Validators.minLength(RegisterComponent.PASSWORD_MIN_LENGTH),
+      Validators.maxLength(RegisterComponent.PASSWORD_MAX_LENGTH),
       Validators.pattern(RegisterComponent.PASSWORD_PATTERN)]
     )
   }

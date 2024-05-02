@@ -11,8 +11,8 @@ import {ShowLoadingService} from "@core/show-loading.service";
   providedIn: 'root',
 })
 export class HttpService {
-  static CONNECTION_REFUSE = 0;
-  static UNAUTHORIZED = 401;
+  static readonly CONNECTION_REFUSE = 0;
+  static readonly UNAUTHORIZED = 401;
 
   private headers: HttpHeaders;
   private params: HttpParams;
@@ -26,30 +26,30 @@ export class HttpService {
     this.resetOptions();
   }
 
-  param(key: string, value: string): HttpService {
+  param(key: string, value: string): this {
     if (value != null) {
       this.params = this.params.append(key, value);
     }
     return this;
   }
 
-  paramsFrom(dto: any): HttpService {
+  paramsFrom(dto: any): this {
     Object.getOwnPropertyNames(dto)
       .forEach(item => this.param(item, dto[item]));
     return this;
   }
 
-  successful(notification: string = 'Successful'): HttpService {
+  successful(notification: string = 'Successful'): this {
     this.successfulNotification = notification;
     return this;
   }
 
-  error(notification: string): HttpService {
+  error(notification: string): this {
     this.errorNotification = notification;
     return this;
   }
 
-  hideError(): HttpService {
+  hideError(): this {
     this.showErrors = false;
     return this;
   }
@@ -103,7 +103,7 @@ export class HttpService {
         catchError(error => this.handleError(error)));
   }
 
-  header(key: string, value: string): HttpService {
+  header(key: string, value: string): this {
     if (value != null) {
       this.headers = this.headers.append(key, value);
     }
@@ -167,7 +167,7 @@ export class HttpService {
     } else {
       try {
         error = response.error;
-        this.showError(error.error + ' (' + response.status + '): ' + error.message);
+        this.showError(error.message);
         return throwError(() => error);
       } catch (e) {
         this.showError('Not response');

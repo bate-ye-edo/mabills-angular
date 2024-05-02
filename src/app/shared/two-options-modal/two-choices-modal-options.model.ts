@@ -3,8 +3,8 @@ export interface TwoChoicesModalOptionsModel {
   message: string;
   confirmText: string;
   cancelText: string;
-  confirmCallback?: () => void;
-  cancelCallback?: () => void;
+  confirmCallback?: (params?:any) => void;
+  cancelCallback?: (params?:any) => void;
   closeOptions?: CloseOptions;
 }
 export const TwoChoicesModalOptionsName: string = "TwoChoicesModalOptions";

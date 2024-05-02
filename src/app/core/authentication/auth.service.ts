@@ -10,15 +10,16 @@ import {JwtDecoderService} from "@core/authentication/jwt-decoder.service";
 import {ShowModalService} from "../../shared/show-modal.service";
 import {TwoChoicesModalOptionsModel} from "../../shared/two-options-modal/two-choices-modal-options.model";
 import {NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+import {NO_BACK_DROP_MODAL} from "../../shared/ModalOptions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  static LOGIN_END_POINT = ENVIRONMENT.SERVICE+'/users/login';
-  static LOGOUT_END_POINT = ENVIRONMENT.SERVICE+'/users/logout';
-  static REGISTER_END_POINT = ENVIRONMENT.SERVICE+'/users/register';
-  static REFRESH_TOKEN_END_POINT = ENVIRONMENT.SERVICE+'/users/refresh-token';
+  static readonly LOGIN_END_POINT = ENVIRONMENT.SERVICE+'/users/login';
+  static readonly LOGOUT_END_POINT = ENVIRONMENT.SERVICE+'/users/logout';
+  static readonly REGISTER_END_POINT = ENVIRONMENT.SERVICE+'/users/register';
+  static readonly REFRESH_TOKEN_END_POINT = ENVIRONMENT.SERVICE+'/users/refresh-token';
 
   private tokenDto: TokenDto;
   private refreshTokenTimer: number = undefined;
@@ -26,7 +27,7 @@ export class AuthService {
   authenticatedObservable: Observable<boolean> = this.authenticatedSubject.asObservable();
 
   constructor(private http: HttpService, private router: Router, private jwtDecoder: JwtDecoderService,
-              private modal: ShowModalService) {
+              private showModalService: ShowModalService) {
   }
 
   login(username: string, password: string): void {
@@ -81,7 +82,7 @@ export class AuthService {
   }
 
   private getNotBackdropModal(): NgbModalOptions{
-    return {backdrop: 'static', keyboard: false, centered: true, windowClass: 'loading-modal'};
+    return {...NO_BACK_DROP_MODAL, windowClass: 'loading-modal'};
   }
 
   private getTwoChoicesModalOptionsModel(): TwoChoicesModalOptionsModel{
@@ -125,6 +126,6 @@ export class AuthService {
   }
 
   private showModalRefreshToken(): void {
-    this.modal.showTwoOptionsModal(this.getNotBackdropModal(), this.getTwoChoicesModalOptionsModel());
+    this.showModalService.showTwoOptionsModal(this.getNotBackdropModal(), this.getTwoChoicesModalOptionsModel());
   }
 }

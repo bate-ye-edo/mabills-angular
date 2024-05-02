@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-header>
+    <div class="header-button-to-end w-100">
+      <mat-card-title class="vertical-centered">Expense Categories</mat-card-title>
+      <button mat-icon-button (click)="showAddExpenseCategoryModal()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">
+            Name
+          </th>
+          <th scope="col">
+            Creation date
+          </th>
+          <th scope="col">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="hasExpenseCategory">
+          <tr *ngFor="let category of expenseCategories">
+            <td>
+              {{ category.name }}
+            </td>
+            <td>
+              {{ category.creationDate | date: 'dd-MM-yyyy HH:mm' }}
+            </td>
+            <td>
+              <div class="d-flex flex-row justify-content-around">
+                <button mat-icon-button (click)="showEditExpenseCategoryModal(category)">
+                  <i class="bi bi-pencil-fill text-warning"></i>
+                </button>
+                <button mat-icon-button (click)="deleteExpenseCategory(category)">
+                  <i class="bi bi-trash3-fill text-danger"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="!hasExpenseCategory">
+          <tr>
+            <td colspan="2">
+              No expense categories found
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-footer class="mat-card-padding-sides">
+    <mat-card-actions class="p-0">
+      <button mat-button color="warn" (click)="closeModal()">Close</button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

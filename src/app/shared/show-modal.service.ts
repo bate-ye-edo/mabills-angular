@@ -1,37 +1,32 @@
 import {Injectable, Injector} from '@angular/core';
-import {NgbModal, NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "./two-options-modal/two-choices-modal.component";
 import {TwoChoicesModalOptionsModel,TwoChoicesModalOptionsName} from "./two-options-modal/two-choices-modal-options.model";
+import {BACKDROP_MODAL} from "./ModalOptions";
+import {ModalProviderModel} from "./ModalProvider.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShowModalService {
-
   constructor(private modal: NgbModal) { }
 
-  showTwoOptionsModal(options: NgbModalOptions, modalOptions: TwoChoicesModalOptionsModel): void {
+  showTwoOptionsModal(options: NgbModalOptions, modalOptions: TwoChoicesModalOptionsModel, component?: any, modalProviders?: ModalProviderModel[]): NgbModalRef {
     modalOptions = this.getTwoChoicesModalOptionsModel(modalOptions);
-    this.modal.open(TwoChoicesModalComponent, {
+    return this.modal.open(component || TwoChoicesModalComponent, {
       ...options,
-      injector: Injector.create({providers: [{provide: TwoChoicesModalOptionsName, useValue: modalOptions}]})
+      injector: Injector.create({providers: [
+          { provide: TwoChoicesModalOptionsName, useValue: modalOptions },
+          ...modalProviders
+        ]})
     });
   }
 
   private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptionsModel): TwoChoicesModalOptionsModel {
     this.setTimeoutIfNeeded(modalOptions);
     return <TwoChoicesModalOptionsModel>{
-      ...modalOptions,
-      cancelCallback: ()=> this.callCallbackAndCloseModal(modalOptions.cancelCallback),
-      confirmCallback: ()=> this.callCallbackAndCloseModal(modalOptions.confirmCallback)
+      ...modalOptions
     };
-  }
-
-  private callCallbackAndCloseModal(callBack: ()=>void){
-    if(callBack){
-      callBack();
-    }
-    this.modal.dismissAll();
   }
 
   private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptionsModel) {
@@ -41,6 +36,10 @@ export class ShowModalService {
         this.modal.dismissAll();
       }, modalOptions.closeOptions.secondsToClose*1000);
     }
+  }
+
+  showModal(modalComponent: any, options?: NgbModalOptions): NgbModalRef {
+    return this.modal.open(modalComponent, options || BACKDROP_MODAL);
   }
 
 }

@@ -14,13 +14,17 @@ import {RouterModule} from "@angular/router";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices-modal.component';
+import { ExpensesCategoriesComponent } from './expenses-categories/expenses-categories.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatListModule} from "@angular/material/list";
+import { ExpenseCategoryModalComponent } from './expenses-categories/expense-category-modal/expense-category-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices
     RegisterComponent,
     HeaderComponent,
     TwoChoicesModalComponent,
+    ExpensesCategoriesComponent,
+    ExpenseCategoryModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,10 @@ import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule,
+    MatListModule,
+    NgbModalModule
   ],
   providers: [TokenInterceptor],
   bootstrap: [AppComponent]
