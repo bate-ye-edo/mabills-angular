@@ -15,13 +15,15 @@ export class ShowModalService {
     modalOptions = this.getTwoChoicesModalOptionsModel(modalOptions);
     return this.modal.open(component || TwoChoicesModalComponent, {
       ...options,
-      injector: Injector.create({providers: [
-          { provide: TwoChoicesModalOptionsName, useValue: modalOptions },
-          ...modalProviders
-        ]})
+      injector: Injector.create({providers: this.getProviders(modalOptions, modalProviders)})
     });
   }
-
+  private getProviders(modalOptions: TwoChoicesModalOptionsModel, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
+    return [
+      { provide: TwoChoicesModalOptionsName, useValue: this.getTwoChoicesModalOptionsModel(modalOptions) },
+      ...modalProviders
+    ];
+  }
   private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptionsModel): TwoChoicesModalOptionsModel {
     this.setTimeoutIfNeeded(modalOptions);
     return <TwoChoicesModalOptionsModel>{

@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Optional} from '@angular/core';
 import {TwoChoicesModalComponent} from "../../shared/two-options-modal/two-choices-modal.component";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {
@@ -7,7 +7,7 @@ import {
 } from "../../shared/two-options-modal/two-choices-modal-options.model";
 import {FormControl} from "@angular/forms";
 import {ExpenseCategory} from "../expense-category.model";
-import {ExpensesCategoriesComponent} from "../expenses-categories.component";
+import {ExpenseCategoriesComponent} from "../expense-categories.component";
 
 @Component({
   selector: 'app-expense-category-modal',
@@ -18,7 +18,7 @@ export class ExpenseCategoryModalComponent extends TwoChoicesModalComponent {
   nameFormControl: FormControl = new FormControl('', []);
 
   constructor(@Inject(TwoChoicesModalOptionsName) options: TwoChoicesModalOptionsModel, protected override activeModal: NgbActiveModal,
-              @Inject(ExpensesCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME) private expenseCategory: ExpenseCategory) {
+              @Optional() @Inject(ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME) private expenseCategory: ExpenseCategory) {
     super(options, activeModal);
     if(this.expenseCategory) {
       this.nameFormControl.setValue(this.expenseCategory.name);

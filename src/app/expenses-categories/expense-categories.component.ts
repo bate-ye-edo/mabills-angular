@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ExpensesCategoriesService} from "./expenses-categories.service";
+import {ExpenseCategoriesService} from "./expense-categories.service";
 import {ExpenseCategory} from "./expense-category.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, Subject} from "rxjs";
@@ -10,18 +10,18 @@ import {TwoChoicesModalOptionsModel} from "../shared/two-options-modal/two-choic
 import {ModalProviderModel} from "../shared/ModalProvider.model";
 
 @Component({
-  selector: 'app-expenses-categories',
-  templateUrl: './expenses-categories.component.html',
-  styleUrls: ['./expenses-categories.component.css']
+  selector: 'app-expense-categories',
+  templateUrl: './expense-categories.component.html',
+  styleUrls: ['./expense-categories.component.css']
 })
-export class ExpensesCategoriesComponent implements OnInit {
+export class ExpenseCategoriesComponent implements OnInit {
   public static readonly EXPENSE_CATEGORY_INPUT_NAME: string = 'EXPENSE_CATEGORY_INPUT_NAME';
   expenseCategories: ExpenseCategory[];
   hasExpenseCategory: boolean;
   private expenseCategoriesSubject: Subject<ExpenseCategory[]> = new Subject<ExpenseCategory[]>();
   expenseCategories$: Observable<ExpenseCategory[]> = this.expenseCategoriesSubject.asObservable();
 
-  constructor(private expensesCategoriesService: ExpensesCategoriesService,
+  constructor(private expensesCategoriesService: ExpenseCategoriesService,
               private activeModal: NgbActiveModal,
               private showModalService: ShowModalService) {
     this.expenseCategories$.subscribe((expenseCategories: ExpenseCategory[]) => {
@@ -31,21 +31,17 @@ export class ExpensesCategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.refreshExpenseCategories();
+    this.getAllExpenseCategories();
   }
 
   private addExpenseCategory(name: string): void {
     this.expensesCategoriesService.addNewExpenseCategory(name)
       .subscribe({
-        next: isAdded => {
-          if(isAdded) {
-            this.refreshExpenseCategories();
-          }
-        }
+        next: expenseCategory => this.expenseCategoriesSubject.next([...this.expenseCategories, expenseCategory])
       })
   }
 
-  private refreshExpenseCategories(): void {
+  private getAllExpenseCategories(): void {
     this.expensesCategoriesService.getExpensesCategories()
       .subscribe({
         next: (expenseCategories: ExpenseCategory[]) => this.expenseCategoriesSubject.next(expenseCategories)
@@ -66,7 +62,6 @@ export class ExpensesCategoriesComponent implements OnInit {
     };
   }
 
-
   closeModal() {
     this.activeModal.dismiss();
   }
@@ -78,6 +73,7 @@ export class ExpensesCategoriesComponent implements OnInit {
       ExpenseCategoryModalComponent,
       [this.getEditExpenseCategoryModalProviders(category)]);
   }
+
   private getEditExpenseCategoryModalOptions(category: ExpenseCategory): TwoChoicesModalOptionsModel {
     return <TwoChoicesModalOptionsModel>{
       title: 'Edit expense category',
@@ -87,12 +83,28 @@ export class ExpensesCategoriesComponent implements OnInit {
       confirmCallback: (name: any) => this.editExpenseCategory(name, category),
     };
   }
+
   private editExpenseCategory(name: string, category: ExpenseCategory): void {
-    console.log(name);
+    this.expensesCategoriesService.editExpenseCategory(category, name)
+      .subscribe({
+        next: (expenseCategory: ExpenseCategory) => this.updateExpenseCategory(expenseCategory),
+      })
+  }
+
+  private updateExpenseCategory(expenseCategory: ExpenseCategory): void {
+    let indexToUpdate: number = this.getExpenseCategoryIndexByUuid(expenseCategory.uuid)
+    if(indexToUpdate >= 0){
+      this.expenseCategories[indexToUpdate] = expenseCategory;
+      this.expenseCategoriesSubject.next(this.expenseCategories);
+    }
+  }
+
+  private getExpenseCategoryIndexByUuid(uuid: string): number {
+    return this.expenseCategories.map(exC => exC.uuid).indexOf(uuid);
   }
   private getEditExpenseCategoryModalProviders(category:ExpenseCategory): ModalProviderModel {
     return <ModalProviderModel> {
-      provide: ExpensesCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME,
+      provide: ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME,
       useValue: category
     }
   }

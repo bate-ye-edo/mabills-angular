@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {AuthService} from "@core/authentication/auth.service";
 import {ShowModalService} from "../shared/show-modal.service";
 import {
-  ExpensesCategoriesComponent
-} from "../expenses-categories/expenses-categories.component";
+  ExpenseCategoriesComponent
+} from "../expenses-categories/expense-categories.component";
 import {NO_BACK_DROP_MODAL} from "../shared/ModalOptions";
 
 @Component({
@@ -28,6 +28,6 @@ export class HeaderComponent {
   }
 
   openExpensesCategoriesModal() {
-    this.showModalService.showModal(ExpensesCategoriesComponent, NO_BACK_DROP_MODAL);
+    this.showModalService.showModal(ExpenseCategoriesComponent, NO_BACK_DROP_MODAL);
   }
 }

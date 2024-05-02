@@ -21,7 +21,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices-modal.component';
-import { ExpensesCategoriesComponent } from './expenses-categories/expenses-categories.component';
+import { ExpenseCategoriesComponent } from './expenses-categories/expense-categories.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import { ExpenseCategoryModalComponent } from './expenses-categories/expense-category-modal/expense-category-modal.component';
@@ -33,7 +33,7 @@ import { ExpenseCategoryModalComponent } from './expenses-categories/expense-cat
     RegisterComponent,
     HeaderComponent,
     TwoChoicesModalComponent,
-    ExpensesCategoriesComponent,
+    ExpenseCategoriesComponent,
     ExpenseCategoryModalComponent,
   ],
   imports: [
