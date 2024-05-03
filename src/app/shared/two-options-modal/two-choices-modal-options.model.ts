@@ -5,11 +5,11 @@ export interface TwoChoicesModalOptionsModel {
   cancelText: string;
   confirmCallback?: (params?:any) => void;
   cancelCallback?: (params?:any) => void;
-  closeOptions?: CloseOptions;
+  autoCloseOptions?: AutoCloseModalOptions;
 }
 export const TwoChoicesModalOptionsName: string = "TwoChoicesModalOptions";
 
-interface CloseOptions {
+interface AutoCloseModalOptions {
   secondsToClose: number;
-  defaultCloseAction: () => void;
+  closeAction: () => void;
 }

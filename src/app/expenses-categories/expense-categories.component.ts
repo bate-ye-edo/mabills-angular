@@ -37,7 +37,10 @@ export class ExpenseCategoriesComponent implements OnInit {
   private addExpenseCategory(name: string): void {
     this.expensesCategoriesService.addNewExpenseCategory(name)
       .subscribe({
-        next: expenseCategory => this.expenseCategoriesSubject.next([...this.expenseCategories, expenseCategory])
+        next: expenseCategory => {
+          this.expenseCategories.push(expenseCategory);
+          this.expenseCategoriesSubject.next(this.expenseCategories);
+        }
       })
   }
 
@@ -102,6 +105,7 @@ export class ExpenseCategoriesComponent implements OnInit {
   private getExpenseCategoryIndexByUuid(uuid: string): number {
     return this.expenseCategories.map(exC => exC.uuid).indexOf(uuid);
   }
+
   private getEditExpenseCategoryModalProviders(category:ExpenseCategory): ModalProviderModel {
     return <ModalProviderModel> {
       provide: ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME,
@@ -110,6 +114,17 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   deleteExpenseCategory(category: ExpenseCategory): void {
-    console.log('deleteExpenseCategory');
+    this.expensesCategoriesService.deleteExpenseCategory(category)
+      .subscribe({
+        next: () => this.removeExpenseCategory(category)
+      });
+  }
+
+  private removeExpenseCategory(category: ExpenseCategory): void {
+    let indexToRemove: number = this.getExpenseCategoryIndexByUuid(category.uuid);
+    if(indexToRemove >= 0){
+      this.expenseCategories.splice(indexToRemove, 1);
+      this.expenseCategoriesSubject.next(this.expenseCategories);
+    }
   }
 }

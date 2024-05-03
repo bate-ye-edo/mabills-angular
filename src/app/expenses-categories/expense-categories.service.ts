@@ -32,4 +32,8 @@ export class ExpenseCategoriesService {
     return this.httpService
       .put(ExpenseCategoriesService.UPDATE_END_POINT.replace('{}', category.uuid), <UpdateExpenseCategoryDto>{name: name});
   }
+
+  deleteExpenseCategory(category: ExpenseCategory) {
+    return this.httpService.delete(ExpenseCategoriesService.END_POINT + '/' + category.uuid);
+  }
 }

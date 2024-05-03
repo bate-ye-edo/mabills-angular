@@ -32,11 +32,11 @@ export class ShowModalService {
   }
 
   private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptionsModel) {
-    if(modalOptions.closeOptions){
+    if(modalOptions.autoCloseOptions){
       setTimeout(()=>{
-        modalOptions.closeOptions.defaultCloseAction();
+        modalOptions.autoCloseOptions.closeAction();
         this.modal.dismissAll();
-      }, modalOptions.closeOptions.secondsToClose*1000);
+      }, modalOptions.autoCloseOptions.secondsToClose*1000);
     }
   }
 

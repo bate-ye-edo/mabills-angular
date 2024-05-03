@@ -93,9 +93,9 @@ export class AuthService {
       cancelText: 'No',
       confirmCallback: () => this.refreshToken(),
       cancelCallback: () => this.logout(),
-      closeOptions: {
+      autoCloseOptions: {
         secondsToClose: ENVIRONMENT.SECONDS_FOR_REFRESH_TOKEN,
-        defaultCloseAction: () => this.processSuccessLogout()
+        closeAction: () => this.processSuccessLogout()
       }
     };
   }
