@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-header>
+    <div class="header-button-to-end w-100">
+      <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
+      <button mat-icon-button (click)="add()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table class="table table-striped">
+      <thead *ngIf="dataSource != undefined">
+        <tr>
+          <th scope="col" *ngFor="let column of dataSource.columns">
+            {{ column.displayName }}
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="hasData">
+        <tr *ngFor="let item of dataSource.data">
+          <td *ngFor="let column of dataSource.columns">
+              {{ getDataFormatted(item[column.fieldName]) }}
+          </td>
+          <td>
+            <div class="d-flex flex-row justify-content-around">
+              <button mat-icon-button (click)="edit(item)">
+                <i class="bi bi-pencil-fill text-warning"></i>
+              </button>
+              <button mat-icon-button (click)="remove(item)">
+                <i class="bi bi-trash3-fill text-danger"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="!hasData">
+        <tr>
+          <td [colSpan]="dataSource.columns.length+1">
+            {{ emptyMessage }}
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-footer class="mat-card-padding-sides" *ngIf="isModal">
+    <mat-card-actions class="p-0">
+      <button mat-button color="warn" (click)="closeModal()">Close</button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {LoadingComponent} from "@core/loading/loading.component";
-import {NO_BACK_DROP_MODAL} from "../shared/ModalOptions";
+import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 
 @Injectable({
   providedIn: 'root'

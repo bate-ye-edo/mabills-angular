@@ -4,7 +4,7 @@ import {ShowModalService} from "../shared/show-modal.service";
 import {
   ExpenseCategoriesComponent
 } from "../expenses-categories/expense-categories.component";
-import {NO_BACK_DROP_MODAL} from "../shared/ModalOptions";
+import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 
 @Component({
   selector: 'app-header',

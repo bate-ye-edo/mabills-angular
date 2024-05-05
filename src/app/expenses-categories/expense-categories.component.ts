@@ -5,9 +5,10 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
 import {ExpenseCategoryModalComponent} from "./expense-category-modal/expense-category-modal.component";
-import {NO_BACK_DROP_MODAL} from "../shared/ModalOptions";
+import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 import {TwoChoicesModalOptionsModel} from "../shared/two-options-modal/two-choices-modal-options.model";
-import {ModalProviderModel} from "../shared/ModalProvider.model";
+import {ModalProviderModel} from "../shared/modal-provider.model";
+import {DataModel} from "../shared/crud/data.model";
 
 @Component({
   selector: 'app-expense-categories',
@@ -16,18 +17,16 @@ import {ModalProviderModel} from "../shared/ModalProvider.model";
 })
 export class ExpenseCategoriesComponent implements OnInit {
   public static readonly EXPENSE_CATEGORY_INPUT_NAME: string = 'EXPENSE_CATEGORY_INPUT_NAME';
-  expenseCategories: ExpenseCategory[];
-  hasExpenseCategory: boolean;
-  private expenseCategoriesSubject: Subject<ExpenseCategory[]> = new Subject<ExpenseCategory[]>();
-  expenseCategories$: Observable<ExpenseCategory[]> = this.expenseCategoriesSubject.asObservable();
+  private dataModelSubject: Subject<DataModel> = new Subject<DataModel>();
+  dataModel$: Observable<DataModel> = this.dataModelSubject.asObservable();
+  dataModel: DataModel;
+  crudTitle: string = 'Expense categories';
+  crudEmptyMessage: string = 'No expense categories found';
 
   constructor(private expensesCategoriesService: ExpenseCategoriesService,
               private activeModal: NgbActiveModal,
               private showModalService: ShowModalService) {
-    this.expenseCategories$.subscribe((expenseCategories: ExpenseCategory[]) => {
-      this.expenseCategories = expenseCategories;
-      this.hasExpenseCategory = !!this.expenseCategories && this.expenseCategories.length > 0;
-    });
+    this.initializeDataModel();
   }
 
   ngOnInit(): void {
@@ -38,8 +37,8 @@ export class ExpenseCategoriesComponent implements OnInit {
     this.expensesCategoriesService.addNewExpenseCategory(name)
       .subscribe({
         next: expenseCategory => {
-          this.expenseCategories.push(expenseCategory);
-          this.expenseCategoriesSubject.next(this.expenseCategories);
+          this.dataModel.data.push(expenseCategory);
+          this.dataModelSubject.next(this.dataModel);
         }
       })
   }
@@ -47,7 +46,10 @@ export class ExpenseCategoriesComponent implements OnInit {
   private getAllExpenseCategories(): void {
     this.expensesCategoriesService.getExpensesCategories()
       .subscribe({
-        next: (expenseCategories: ExpenseCategory[]) => this.expenseCategoriesSubject.next(expenseCategories)
+        next: (expenseCategories: ExpenseCategory[]) => {
+          this.dataModel.data = expenseCategories;
+          this.dataModelSubject.next(this.dataModel);
+        }
       });
   }
 
@@ -97,13 +99,13 @@ export class ExpenseCategoriesComponent implements OnInit {
   private updateExpenseCategory(expenseCategory: ExpenseCategory): void {
     let indexToUpdate: number = this.getExpenseCategoryIndexByUuid(expenseCategory.uuid)
     if(indexToUpdate >= 0){
-      this.expenseCategories[indexToUpdate] = expenseCategory;
-      this.expenseCategoriesSubject.next(this.expenseCategories);
+      this.dataModel.data[indexToUpdate] = expenseCategory;
+      this.dataModelSubject.next(this.dataModel);
     }
   }
 
   private getExpenseCategoryIndexByUuid(uuid: string): number {
-    return this.expenseCategories.map(exC => exC.uuid).indexOf(uuid);
+    return this.dataModel.data.map(exC => exC.uuid).indexOf(uuid);
   }
 
   private getEditExpenseCategoryModalProviders(category:ExpenseCategory): ModalProviderModel {
@@ -123,8 +125,16 @@ export class ExpenseCategoriesComponent implements OnInit {
   private removeExpenseCategory(category: ExpenseCategory): void {
     let indexToRemove: number = this.getExpenseCategoryIndexByUuid(category.uuid);
     if(indexToRemove >= 0){
-      this.expenseCategories.splice(indexToRemove, 1);
-      this.expenseCategoriesSubject.next(this.expenseCategories);
+      this.dataModel.data.splice(indexToRemove, 1);
+      this.dataModelSubject.next(this.dataModel);
     }
+  }
+
+  private initializeDataModel(): void {
+    this.dataModel = <DataModel>{};
+    this.dataModel.columns = [
+      {displayName: 'Name', fieldName: 'name'},
+      {displayName: 'Creation date', fieldName: 'creationDate'}
+    ];
   }
 }

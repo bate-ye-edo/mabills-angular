@@ -25,6 +25,7 @@ import { ExpenseCategoriesComponent } from './expenses-categories/expense-catego
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import { ExpenseCategoryModalComponent } from './expenses-categories/expense-category-modal/expense-category-modal.component';
+import { CrudComponent } from './shared/crud/crud.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ExpenseCategoryModalComponent } from './expenses-categories/expense-cat
     TwoChoicesModalComponent,
     ExpenseCategoriesComponent,
     ExpenseCategoryModalComponent,
+    CrudComponent,
   ],
   imports: [
     BrowserModule,

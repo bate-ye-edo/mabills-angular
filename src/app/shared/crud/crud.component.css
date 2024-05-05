@@ -1,0 +1,32 @@
+.header-button-to-end {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.vertical-centered {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mat-card-padding-sides {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+tbody button[mat-icon-button] {
+  padding: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 0.9rem;
+}
+
+tbody, td {
+  vertical-align: middle;
+}
+
+span.mat-mdc-button-touch-target{
+  padding: 0;
+  height: 16px;
+  width: 16px;
+}

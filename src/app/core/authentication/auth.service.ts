@@ -10,7 +10,7 @@ import {JwtDecoderService} from "@core/authentication/jwt-decoder.service";
 import {ShowModalService} from "../../shared/show-modal.service";
 import {TwoChoicesModalOptionsModel} from "../../shared/two-options-modal/two-choices-modal-options.model";
 import {NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
-import {NO_BACK_DROP_MODAL} from "../../shared/ModalOptions";
+import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
 
 @Injectable({
   providedIn: 'root'

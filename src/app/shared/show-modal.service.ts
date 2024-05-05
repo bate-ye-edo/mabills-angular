@@ -2,8 +2,8 @@ import {Injectable, Injector} from '@angular/core';
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "./two-options-modal/two-choices-modal.component";
 import {TwoChoicesModalOptionsModel,TwoChoicesModalOptionsName} from "./two-options-modal/two-choices-modal-options.model";
-import {BACKDROP_MODAL} from "./ModalOptions";
-import {ModalProviderModel} from "./ModalProvider.model";
+import {BACKDROP_MODAL} from "./modal-options";
+import {ModalProviderModel} from "./modal-provider.model";
 
 @Injectable({
   providedIn: 'root'
