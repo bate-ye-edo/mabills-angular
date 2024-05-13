@@ -10,11 +10,11 @@ import {ExpenseCategory} from "../expense-category.model";
 import {ExpenseCategoriesComponent} from "../expense-categories.component";
 
 @Component({
-  selector: 'app-expense-category-modal',
-  templateUrl: './expense-category-modal.component.html',
-  styleUrls: ['./expense-category-modal.component.css']
+  selector: 'app-expense-category-modify-field',
+  templateUrl: './expense-category-modify-field.component.html',
+  styleUrls: ['./expense-category-modify-field.component.css']
 })
-export class ExpenseCategoryModalComponent extends TwoChoicesModalComponent {
+export class ExpenseCategoryModifyFieldComponent extends TwoChoicesModalComponent {
   nameFormControl: FormControl = new FormControl('', []);
 
   constructor(@Inject(TwoChoicesModalOptionsName) options: TwoChoicesModalOptionsModel, protected override activeModal: NgbActiveModal,

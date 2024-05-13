@@ -5,7 +5,7 @@ import * as moment from "moment";
   providedIn: 'root'
 })
 export class DataFormatterService {
-  static dateFormat: string = 'dd/MM/yyyy HH:mm';
+  static DATE_FORMAT: string = 'DD/MM/yyyy HH:mm';
   constructor() { }
 
   formatData(data: any): string {
@@ -27,7 +27,7 @@ export class DataFormatterService {
   }
 
   private formatDate(data: any): string {
-    return moment(data as Date).format(DataFormatterService.dateFormat);
+    return moment(data as Date).format(DataFormatterService.DATE_FORMAT);
   }
 
   private formatNumber(data: any): string {

@@ -4,7 +4,7 @@ import {ExpenseCategory} from "./expense-category.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
-import {ExpenseCategoryModalComponent} from "./expense-category-modal/expense-category-modal.component";
+import {ExpenseCategoryModifyFieldComponent} from "./expense-category-modify-field/expense-category-modify-field.component";
 import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 import {TwoChoicesModalOptionsModel} from "../shared/two-options-modal/two-choices-modal-options.model";
 import {ModalProviderModel} from "../shared/modal-provider.model";
@@ -54,7 +54,7 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   showAddExpenseCategoryModal(): void {
-    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryModalComponent);
+    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryModifyFieldComponent);
   }
 
   private getAddNewExpenseCategoryModalOptions(): TwoChoicesModalOptionsModel {
@@ -75,7 +75,7 @@ export class ExpenseCategoriesComponent implements OnInit {
     this.showModalService.showTwoOptionsModal(
       NO_BACK_DROP_MODAL,
       this.getEditExpenseCategoryModalOptions(category),
-      ExpenseCategoryModalComponent,
+      ExpenseCategoryModifyFieldComponent,
       [this.getEditExpenseCategoryModalProviders(category)]);
   }
 

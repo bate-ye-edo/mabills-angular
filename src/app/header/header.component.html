@@ -9,9 +9,14 @@
       <i class="bi bi-tag-fill"></i>
     </button>
   </div>
-  <button mat-icon-button *ngIf="userAuthenticated" (click)="logout()" matTooltip="Log Out">
-    <i class="bi bi-box-arrow-right"></i>
-  </button>
+  <div *ngIf="userAuthenticated">
+    <button mat-icon-button matTooltip="Profile" routerLink="/user-profile">
+      <i class="bi bi-person-square"></i>
+    </button>
+    <button mat-icon-button (click)="logout()" matTooltip="Log Out">
+      <i class="bi bi-box-arrow-right"></i>
+    </button>
+  </div>
 </mat-toolbar>
 
 <mat-menu #loginRegisterMenu="matMenu">

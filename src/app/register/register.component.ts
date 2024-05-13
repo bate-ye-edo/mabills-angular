@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
 import {AuthService} from "@core/authentication/auth.service";
 import {User} from "@core/authentication/user.model";
+import {UserFormControls} from "../shared/user-form.controls";
 
 @Component({
   selector: 'app-register',
@@ -9,71 +9,25 @@ import {User} from "@core/authentication/user.model";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  static readonly PASSWORD_PATTERN: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,@!$%*?&])[A-Za-z0-9.,@!$%*?&]{6,}$';
-  static readonly MOBILE_PATTERN: string = '[0-9]+';
-  static readonly USERNAME_PATTERN: string = '^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,1}$';
-  static readonly PASSWORD_MIN_LENGTH: number = 6;
-  static readonly PASSWORD_MAX_LENGTH: number = 16;
-  static readonly USERNAME_MIN_LENGTH: number = 4;
-  usernameFormControl: FormControl;
-  passwordFormControl: FormControl;
-  emailFormControl: FormControl;
-  mobileFormControl: FormControl;
+  userFormControls: UserFormControls;
 
   constructor(private auth: AuthService) {
   }
 
   ngOnInit(): void {
-    this.initFormControls();
+    this.userFormControls = new UserFormControls().build();
   }
 
-
   inputsHaveErrors(): boolean {
-    return this.usernameFormControl.status === 'INVALID' || this.passwordFormControl.status === 'INVALID'
-          || this.emailFormControl.status === 'INVALID' || this.mobileFormControl.status === 'INVALID';
+    return this.userFormControls.inputsHaveErrors();
   }
 
   register(): void {
     this.auth.register(<User>{
-      username: this.usernameFormControl.value as string,
-      password: this.passwordFormControl.value as string,
-      email: this.emailFormControl.value as string,
-      mobile: this.mobileFormControl.value as string
+      username: this.userFormControls.getUsernameFormControlValue(),
+      password: this.userFormControls.getPasswordFormControlValue(),
+      email: this.userFormControls.getEmailFormControlValue(),
+      mobile: this.userFormControls.getMobileFormControlValue()
     });
-  }
-
-  private initFormControls(): void {
-    this.initUsernameFormControl();
-    this.initPasswordFormControl();
-    this.initEmailFormControl();
-    this.initMobileFormControl();
-  }
-
-  private initUsernameFormControl(): void {
-    this.usernameFormControl = new FormControl('', [
-      Validators.required,
-      Validators.minLength(RegisterComponent.USERNAME_MIN_LENGTH),
-      Validators.pattern(RegisterComponent.USERNAME_PATTERN)]);
-  }
-
-  private initPasswordFormControl(): void {
-    this.passwordFormControl = new FormControl('', [
-      Validators.required,
-      Validators.minLength(RegisterComponent.PASSWORD_MIN_LENGTH),
-      Validators.maxLength(RegisterComponent.PASSWORD_MAX_LENGTH),
-      Validators.pattern(RegisterComponent.PASSWORD_PATTERN)]
-    )
-  }
-
-  private initEmailFormControl(): void{
-    this.emailFormControl = new FormControl('', [
-      Validators.required,
-      Validators.email]);
-  }
-
-  private initMobileFormControl(): void {
-    this.mobileFormControl = new FormControl('', [
-      Validators.required,
-      Validators.pattern(RegisterComponent.MOBILE_PATTERN)]);
   }
 }

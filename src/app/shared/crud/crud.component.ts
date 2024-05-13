@@ -19,6 +19,7 @@ export class CrudComponent {
   @Output() delete: EventEmitter<any> = new EventEmitter();
   dataSource: DataModel;
   hasData: boolean = false;
+  colSpan: number = 0;
 
   constructor(private dataFormatter: DataFormatterService, private ngbActiveModal: NgbActiveModal) {
   }
@@ -28,6 +29,7 @@ export class CrudComponent {
     data.subscribe(dataValue => {
       this.dataSource = dataValue;
       this.hasData = this.dataSource.data.length > 0;
+      this.colSpan = this.dataSource.columns.length + 1;
     })
   }
 

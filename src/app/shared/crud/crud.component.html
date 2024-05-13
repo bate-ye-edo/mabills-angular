@@ -37,7 +37,7 @@
       </ng-container>
       <ng-container *ngIf="!hasData">
         <tr>
-          <td [colSpan]="dataSource.columns.length+1">
+          <td [colSpan]="colSpan+1">
             {{ emptyMessage }}
           </td>
         </tr>

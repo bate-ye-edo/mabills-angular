@@ -24,8 +24,9 @@ import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices
 import { ExpenseCategoriesComponent } from './expenses-categories/expense-categories.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
-import { ExpenseCategoryModalComponent } from './expenses-categories/expense-category-modal/expense-category-modal.component';
+import { ExpenseCategoryModifyFieldComponent } from './expenses-categories/expense-category-modify-field/expense-category-modify-field.component';
 import { CrudComponent } from './shared/crud/crud.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { CrudComponent } from './shared/crud/crud.component';
     HeaderComponent,
     TwoChoicesModalComponent,
     ExpenseCategoriesComponent,
-    ExpenseCategoryModalComponent,
+    ExpenseCategoryModifyFieldComponent,
     CrudComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
