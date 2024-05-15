@@ -4,9 +4,9 @@ import {ExpenseCategory} from "./expense-category.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
-import {ExpenseCategoryModifyFieldComponent} from "./expense-category-modify-field/expense-category-modify-field.component";
+import {ExpenseCategoryFieldsComponent} from "./expense-category-fields/expense-category-fields.component";
 import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
-import {TwoChoicesModalOptionsModel} from "../shared/two-options-modal/two-choices-modal-options.model";
+import {TwoChoicesModalOptions} from "../shared/two-options-modal/two-choices-modal.options";
 import {ModalProviderModel} from "../shared/modal-provider.model";
 import {DataModel} from "../shared/crud/data.model";
 
@@ -54,35 +54,29 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   showAddExpenseCategoryModal(): void {
-    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryModifyFieldComponent);
+    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryFieldsComponent);
   }
 
-  private getAddNewExpenseCategoryModalOptions(): TwoChoicesModalOptionsModel {
-    return <TwoChoicesModalOptionsModel>{
+  private getAddNewExpenseCategoryModalOptions(): TwoChoicesModalOptions {
+    return <TwoChoicesModalOptions>{
       title: 'Add new expense category',
-      message: 'Enter the name of the new category',
       confirmText: 'Add',
       cancelText: 'Cancel',
       confirmCallback: (name: any) => this.addExpenseCategory(name),
     };
   }
 
-  closeModal() {
-    this.activeModal.dismiss();
-  }
-
   showEditExpenseCategoryModal(category: ExpenseCategory): void {
     this.showModalService.showTwoOptionsModal(
       NO_BACK_DROP_MODAL,
       this.getEditExpenseCategoryModalOptions(category),
-      ExpenseCategoryModifyFieldComponent,
+      ExpenseCategoryFieldsComponent,
       [this.getEditExpenseCategoryModalProviders(category)]);
   }
 
-  private getEditExpenseCategoryModalOptions(category: ExpenseCategory): TwoChoicesModalOptionsModel {
-    return <TwoChoicesModalOptionsModel>{
+  private getEditExpenseCategoryModalOptions(category: ExpenseCategory): TwoChoicesModalOptions {
+    return <TwoChoicesModalOptions>{
       title: 'Edit expense category',
-      message: 'Enter the new name of the category',
       confirmText: 'Save',
       cancelText: 'Cancel',
       confirmCallback: (name: any) => this.editExpenseCategory(name, category),

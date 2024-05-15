@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {User} from "@core/authentication/user.model";
 import {JwtDecoderService} from "@core/authentication/jwt-decoder.service";
 import {ShowModalService} from "../../shared/show-modal.service";
-import {TwoChoicesModalOptionsModel} from "../../shared/two-options-modal/two-choices-modal-options.model";
+import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
 import {NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
 
@@ -85,8 +85,8 @@ export class AuthService {
     return {...NO_BACK_DROP_MODAL, windowClass: 'loading-modal'};
   }
 
-  private getTwoChoicesModalOptionsModel(): TwoChoicesModalOptionsModel{
-    return <TwoChoicesModalOptionsModel>{
+  private getTwoChoicesModalOptionsModel(): TwoChoicesModalOptions{
+    return <TwoChoicesModalOptions>{
       title: 'Refresh Token',
       message: 'Your token is about to expire. Do you want to refresh it?',
       confirmText: 'Yes',

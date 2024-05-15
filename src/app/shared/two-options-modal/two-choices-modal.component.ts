@@ -1,5 +1,5 @@
 import {Component, Inject, Injectable} from '@angular/core';
-import {TwoChoicesModalOptionsModel, TwoChoicesModalOptionsName} from "./two-choices-modal-options.model";
+import {TwoChoicesModalOptions, TwoChoicesModalOptionsName} from "./two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -16,7 +16,7 @@ export class TwoChoicesModalComponent {
   acceptText: string;
   cancelText: string;
 
-  constructor(@Inject(TwoChoicesModalOptionsName) protected options: TwoChoicesModalOptionsModel,
+  constructor(@Inject(TwoChoicesModalOptionsName) protected options: TwoChoicesModalOptions,
               protected activeModal: NgbActiveModal) {
     this.title = options.title;
     this.message = options.message;

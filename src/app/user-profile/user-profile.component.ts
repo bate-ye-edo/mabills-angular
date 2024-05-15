@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UserProfileService} from "./user-profile.service";
 import {User} from "@core/authentication/user.model";
 import {UserFormControls} from "../shared/user-form.controls";
+import {ShowModalService} from "../shared/show-modal.service";
+import {CreditCardModalComponent} from "./credit-card-modal/credit-card-modal.component";
+import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 
 @Component({
   selector: 'app-user-profile',
@@ -14,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   title: string = 'Profile';
   userFormControls: UserFormControls;
   canUpdate: boolean = false;
-  constructor(private userProfileService: UserProfileService) { }
+  constructor(private userProfileService: UserProfileService, private showModalService: ShowModalService) { }
 
   ngOnInit(): void {
     this.userFormControls = new UserFormControls()
@@ -104,5 +107,13 @@ export class UserProfileComponent implements OnInit {
           this.canUpdate = value !== '';
         }
       });
+  }
+
+  showBankAccountModal(): void {
+
+  }
+
+  showCreditCardsModal(): void {
+    this.showModalService.showModal(CreditCardModalComponent, NO_BACK_DROP_MODAL);
   }
 }

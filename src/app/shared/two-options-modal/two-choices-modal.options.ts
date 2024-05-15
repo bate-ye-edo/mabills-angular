@@ -1,4 +1,4 @@
-export interface TwoChoicesModalOptionsModel {
+export interface TwoChoicesModalOptions {
   title: string;
   message: string;
   confirmText: string;

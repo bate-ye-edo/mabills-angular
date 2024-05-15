@@ -2,7 +2,7 @@
   <mat-card-header>
     <div class="header-button-to-end w-100">
       <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
-      <button mat-icon-button (click)="add()">
+      <button mat-icon-button (click)="add()" *ngIf="addAction">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -14,7 +14,7 @@
           <th scope="col" *ngFor="let column of dataSource.columns">
             {{ column.displayName }}
           </th>
-          <th scope="col"></th>
+          <th scope="col" *ngIf="hasActions()"></th>
         </tr>
       </thead>
       <tbody>
@@ -24,11 +24,11 @@
               {{ getDataFormatted(item[column.fieldName]) }}
           </td>
           <td>
-            <div class="d-flex flex-row justify-content-around">
-              <button mat-icon-button (click)="edit(item)">
+            <div class="d-flex flex-row justify-content-around" *ngIf="hasActions()">
+              <button mat-icon-button (click)="edit(item)" *ngIf="updateAction">
                 <i class="bi bi-pencil-fill text-warning"></i>
               </button>
-              <button mat-icon-button (click)="remove(item)">
+              <button mat-icon-button (click)="remove(item)" *ngIf="deleteAction">
                 <i class="bi bi-trash3-fill text-danger"></i>
               </button>
             </div>
@@ -37,7 +37,7 @@
       </ng-container>
       <ng-container *ngIf="!hasData">
         <tr>
-          <td [colSpan]="colSpan+1">
+          <td [colSpan]="getColSpanNumber()">
             {{ emptyMessage }}
           </td>
         </tr>

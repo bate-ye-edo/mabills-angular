@@ -13,6 +13,9 @@ export class CrudComponent {
   @Input() title: string;
   @Input() emptyMessage: string;
   @Input() isModal: boolean = false;
+  @Input() addAction: boolean = true;
+  @Input() updateAction: boolean = true;
+  @Input() deleteAction: boolean = true;
 
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
@@ -51,5 +54,13 @@ export class CrudComponent {
 
   closeModal() {
     this.ngbActiveModal.close();
+  }
+
+  hasActions(): boolean {
+    return this.updateAction || this.deleteAction;
+  }
+
+  getColSpanNumber(): number {
+    return this.hasActions() ? this.colSpan + 1 : this.colSpan;
   }
 }

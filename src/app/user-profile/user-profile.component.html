@@ -24,6 +24,10 @@
           <mat-error *ngIf="userFormControls.mobileFormControl.hasError('required')">Mobile is required</mat-error>
           <mat-error *ngIf="userFormControls.mobileFormControl.hasError('pattern')">Mobile should only contain numbers</mat-error>
         </mat-form-field>
+        <div class="mb-3">
+          <button mat-button color="primary" class="me-2" (click)="showCreditCardsModal()">Credit Cards</button>
+          <button mat-button color="primary" (click)="showBankAccountModal()">Bank Accounts</button>
+        </div>
         <button mat-raised-button color="primary" (click)="updateProfile()" [disabled]="disableUpdateButton()">Update</button>
         <button mat-raised-button color="warn" (click)="reset()" class="ms-1">Reset</button>
       </form>

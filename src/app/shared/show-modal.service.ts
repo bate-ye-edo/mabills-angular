@@ -1,7 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "./two-options-modal/two-choices-modal.component";
-import {TwoChoicesModalOptionsModel,TwoChoicesModalOptionsName} from "./two-options-modal/two-choices-modal-options.model";
+import {TwoChoicesModalOptions,TwoChoicesModalOptionsName} from "./two-options-modal/two-choices-modal.options";
 import {BACKDROP_MODAL} from "./modal-options";
 import {ModalProviderModel} from "./modal-provider.model";
 
@@ -11,27 +11,27 @@ import {ModalProviderModel} from "./modal-provider.model";
 export class ShowModalService {
   constructor(private modal: NgbModal) { }
 
-  showTwoOptionsModal(options: NgbModalOptions, modalOptions: TwoChoicesModalOptionsModel, component?: any, modalProviders?: ModalProviderModel[]): NgbModalRef {
+  showTwoOptionsModal(options: NgbModalOptions, modalOptions: TwoChoicesModalOptions, component?: any, modalProviders?: ModalProviderModel[]): NgbModalRef {
     modalOptions = this.getTwoChoicesModalOptionsModel(modalOptions);
     return this.modal.open(component || TwoChoicesModalComponent, {
       ...options,
       injector: Injector.create({providers: this.getProviders(modalOptions, modalProviders)})
     });
   }
-  private getProviders(modalOptions: TwoChoicesModalOptionsModel, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
+  private getProviders(modalOptions: TwoChoicesModalOptions, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
     return [
       { provide: TwoChoicesModalOptionsName, useValue: this.getTwoChoicesModalOptionsModel(modalOptions) },
       ...modalProviders
     ];
   }
-  private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptionsModel): TwoChoicesModalOptionsModel {
+  private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptions): TwoChoicesModalOptions {
     this.setTimeoutIfNeeded(modalOptions);
-    return <TwoChoicesModalOptionsModel>{
+    return <TwoChoicesModalOptions>{
       ...modalOptions
     };
   }
 
-  private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptionsModel) {
+  private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptions) {
     if(modalOptions.autoCloseOptions){
       setTimeout(()=>{
         modalOptions.autoCloseOptions.closeAction();

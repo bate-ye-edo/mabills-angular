@@ -24,9 +24,12 @@ import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices
 import { ExpenseCategoriesComponent } from './expenses-categories/expense-categories.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
-import { ExpenseCategoryModifyFieldComponent } from './expenses-categories/expense-category-modify-field/expense-category-modify-field.component';
+import { ExpenseCategoryFieldsComponent } from './expenses-categories/expense-category-fields/expense-category-fields.component';
 import { CrudComponent } from './shared/crud/crud.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CreditCardModalComponent } from './user-profile/credit-card-modal/credit-card-modal.component';
+import { CreditCardFieldsComponent } from './user-profile/credit-card-modal/credit-card-fields/credit-card-fields.component';
+import {BillsComponent} from "./bills/bills.component";
 
 @NgModule({
   declarations: [
@@ -36,9 +39,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     HeaderComponent,
     TwoChoicesModalComponent,
     ExpenseCategoriesComponent,
-    ExpenseCategoryModifyFieldComponent,
+    ExpenseCategoryFieldsComponent,
     CrudComponent,
     UserProfileComponent,
+    CreditCardModalComponent,
+    CreditCardFieldsComponent,
+    BillsComponent
   ],
   imports: [
     BrowserModule,
