@@ -5,6 +5,8 @@ import {UserFormControls} from "../shared/user-form.controls";
 import {ShowModalService} from "../shared/show-modal.service";
 import {CreditCardModalComponent} from "./credit-card-modal/credit-card-modal.component";
 import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
+import {UserProfile} from "./user-profile.model";
+import {BankAccountModalComponent} from "./bank-account-modal/bank-account-modal.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -12,8 +14,8 @@ import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  private originalUserProfile: User;
-  userProfile: User = <User>{};
+  private originalUserProfile: UserProfile;
+  userProfile: UserProfile = <UserProfile>{};
   title: string = 'Profile';
   userFormControls: UserFormControls;
   canUpdate: boolean = false;
@@ -30,11 +32,11 @@ export class UserProfileComponent implements OnInit {
   private getUserProfile(): void {
     this.userProfileService.getUserProfile()
       .subscribe({
-        next: (user: User) => this.initializeComponent(user)
+        next: (user: UserProfile) => this.initializeComponent(user)
       });
   }
 
-  private initializeComponent(user: User): void {
+  private initializeComponent(user: UserProfile): void {
     this.userProfile = {...user};
     this.originalUserProfile = user;
     this.setFormControlsValues();
@@ -52,16 +54,17 @@ export class UserProfileComponent implements OnInit {
   updateProfile(): void {
     this.userProfileService.updateUserProfile(this.buildNewUserProfileFromFormControls())
       .subscribe({
-        next: (updatedUserProfile: User) => this.initializeComponent(updatedUserProfile)
+        next: (updatedUserProfile: UserProfile) => this.initializeComponent(updatedUserProfile)
       });
   }
 
-  private buildNewUserProfileFromFormControls(): User {
-    return <User>{
+  private buildNewUserProfileFromFormControls(): UserProfile {
+    return <UserProfile>{
       username: this.userProfile.username,
       email: this.userFormControls.getEmailFormControlValue(),
       mobile: this.userFormControls.getMobileFormControlValue(),
-      password: this.userFormControls.getPasswordFormControlValue()
+      password: this.userFormControls.getPasswordFormControlValue(),
+
     };
   }
 
@@ -110,7 +113,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   showBankAccountModal(): void {
-
+    this.showModalService.showModal(BankAccountModalComponent, NO_BACK_DROP_MODAL);
   }
 
   showCreditCardsModal(): void {

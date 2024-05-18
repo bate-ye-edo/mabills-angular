@@ -135,6 +135,7 @@ export class HttpService {
       });
       this.successfulNotification = undefined;
     }
+    this.showErrors = true;
     const contentType = response.headers.get('content-type');
     if (contentType) {
       return response.body;

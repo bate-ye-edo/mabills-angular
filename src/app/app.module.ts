@@ -30,6 +30,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreditCardModalComponent } from './user-profile/credit-card-modal/credit-card-modal.component';
 import { CreditCardFieldsComponent } from './user-profile/credit-card-modal/credit-card-fields/credit-card-fields.component';
 import {BillsComponent} from "./bills/bills.component";
+import {MatSelectModule} from "@angular/material/select";
+import { BankAccountModalComponent } from './user-profile/bank-account-modal/bank-account-modal.component';
+import { BankAccountFieldsComponent } from './user-profile/bank-account-modal/bank-account-fields/bank-account-fields.component';
 
 @NgModule({
   declarations: [
@@ -44,29 +47,32 @@ import {BillsComponent} from "./bills/bills.component";
     UserProfileComponent,
     CreditCardModalComponent,
     CreditCardFieldsComponent,
-    BillsComponent
+    BillsComponent,
+    BankAccountModalComponent,
+    BankAccountFieldsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    CoreModule,
-    RouterModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    NgbModule,
-    FormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatTooltipModule,
-    MatTableModule,
-    MatListModule,
-    NgbModalModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        CoreModule,
+        RouterModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatIconModule,
+        NgbModule,
+        FormsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTooltipModule,
+        MatTableModule,
+        MatListModule,
+        NgbModalModule,
+        MatSelectModule
+    ],
   providers: [TokenInterceptor],
   bootstrap: [AppComponent]
 })

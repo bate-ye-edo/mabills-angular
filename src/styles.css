@@ -14,3 +14,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.cdk-overlay-container{
+  z-index: 2000 !important;
+}

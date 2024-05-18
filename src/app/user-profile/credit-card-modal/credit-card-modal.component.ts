@@ -7,13 +7,14 @@ import {ShowModalService} from "../../shared/show-modal.service";
 import {CreditCardFieldsComponent} from "./credit-card-fields/credit-card-fields.component";
 import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
+import {CreditCard} from "../credit-card.model";
 
 @Component({
   selector: 'app-credit-card-modal',
   templateUrl: './credit-card-modal.component.html',
   styleUrls: ['./credit-card-modal.component.css']
 })
-export class CreditCardModalComponent implements OnInit{
+export class CreditCardModalComponent implements OnInit {
   title: string = 'Credit Cards';
   emptyMessage: string = 'No credit cards found';
   private dataModelSubject: Subject<DataModel> = new Subject<DataModel>();
@@ -47,6 +48,10 @@ export class CreditCardModalComponent implements OnInit{
       {
         displayName: 'Card Number',
         fieldName: 'creditCardNumber'
+      },
+      {
+        displayName: 'Bank Account',
+        fieldName: 'bankAccount.iban'
       }
     ]
   }
@@ -60,17 +65,27 @@ export class CreditCardModalComponent implements OnInit{
       title: 'Add Credit Card',
       confirmText: 'Add',
       cancelText: 'Cancel',
-      confirmCallback: (creditCardNumber: string) => this.addCreditCard(creditCardNumber),
+      confirmCallback: (creditCard: CreditCard) =>this.addCreditCard(creditCard)
     };
   }
 
-  private addCreditCard(creditCardNumber: string) {
-    this.creditCardService.addCreditCard(creditCardNumber)
+  private addCreditCard(creditCard: CreditCard): void {
+    this.creditCardService.addCreditCard(creditCard)
       .subscribe({
         next: creditCard => {
           this.dataModel.data.push(creditCard);
           this.dataModelSubject.next(this.dataModel);
         }
       });
+  }
+
+  deleteCreditCard(creditCard: CreditCard): void {
+    this.creditCardService.deleteCreditCard(creditCard)
+      .subscribe({
+        next: () =>{
+          this.dataModel.data = this.dataModel.data.filter(creditCard => creditCard.uuid !== creditCard.uuid);
+          this.dataModelSubject.next(this.dataModel);
+        }
+      })
   }
 }

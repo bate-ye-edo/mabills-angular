@@ -63,4 +63,20 @@ export class CrudComponent {
   getColSpanNumber(): number {
     return this.hasActions() ? this.colSpan + 1 : this.colSpan;
   }
+
+  getNestedItemValue(item: any, fieldName: string): any {
+    const fieldNames: string[] = fieldName.split('.');
+    if(fieldNames.length === 1) {
+      return item[fieldName];
+    }
+    let value: any = item;
+    for(let i: number = 0; i < fieldNames.length; i++) {
+      if(value === null || value === undefined) {
+        return '';
+      }
+      value = value[fieldNames[i]];
+    }
+    return value;
+  }
+
 }

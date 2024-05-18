@@ -36,7 +36,7 @@ export class ExpenseCategoriesService {
       );
   }
 
-  private buildExpenseCategoryWithName(name:string){
+  private buildExpenseCategoryWithName(name:string): ExpenseCategory{
     return <ExpenseCategory> {
       name: name
     }

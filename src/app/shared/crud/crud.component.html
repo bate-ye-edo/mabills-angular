@@ -21,7 +21,7 @@
       <ng-container *ngIf="hasData">
         <tr *ngFor="let item of dataSource.data">
           <td *ngFor="let column of dataSource.columns">
-              {{ getDataFormatted(item[column.fieldName]) }}
+              {{ getDataFormatted(getNestedItemValue(item, column.fieldName)) }}
           </td>
           <td>
             <div class="d-flex flex-row justify-content-around" *ngIf="hasActions()">

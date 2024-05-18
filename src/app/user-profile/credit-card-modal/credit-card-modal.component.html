@@ -1,5 +1,6 @@
 <app-crud [title]="title" [emptyMessage]="emptyMessage"
           [isModal]="true" [data]="dataModel$"
           [updateAction]="false"
-          (create)="showAddCreditCard()">
+          (create)="showAddCreditCard()"
+          (delete)="deleteCreditCard($event)">
 </app-crud>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ENVIRONMENT} from "../../../environment/environment";
 import {HttpService} from "@core/http.service";
-import {CreditCard} from "./credit-card.model";
+import {CreditCard} from "../credit-card.model";
 import {Observable, of} from "rxjs";
 
 @Injectable({
@@ -15,7 +15,11 @@ export class CreditCardService {
     return this.httpService.get(CreditCardService.END_POINT);
   }
 
-  addCreditCard(creditCardNumber: string): Observable<CreditCard> {
-    return of({creditCardNumber: creditCardNumber, uuid: '1234'});
+  addCreditCard(creditCard: CreditCard): Observable<CreditCard> {
+    return this.httpService.post(CreditCardService.END_POINT, creditCard);
+  }
+
+  deleteCreditCard(creditCard: CreditCard): Observable<any> {
+    return this.httpService.delete(CreditCardService.END_POINT + '/' + creditCard.uuid);
   }
 }
