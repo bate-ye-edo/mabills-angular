@@ -11,11 +11,11 @@ import {ModalProviderModel} from "./modal-provider.model";
 export class ShowModalService {
   constructor(private modal: NgbModal) { }
 
-  showTwoOptionsModal(options: NgbModalOptions, modalOptions: TwoChoicesModalOptions, component?: any, modalProviders?: ModalProviderModel[]): NgbModalRef {
-    modalOptions = this.getTwoChoicesModalOptionsModel(modalOptions);
+  showTwoOptionsModal(options: NgbModalOptions, modalComponentOptions: TwoChoicesModalOptions, component?: any, modalProviders?: ModalProviderModel[]): NgbModalRef {
+    modalComponentOptions = this.getTwoChoicesModalOptionsModel(modalComponentOptions);
     return this.modal.open(component || TwoChoicesModalComponent, {
       ...options,
-      injector: Injector.create({providers: this.getProviders(modalOptions, modalProviders)})
+      injector: Injector.create({providers: this.getProviders(modalComponentOptions, modalProviders)})
     });
   }
   private getProviders(modalOptions: TwoChoicesModalOptions, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
@@ -26,7 +26,7 @@ export class ShowModalService {
   }
   private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptions): TwoChoicesModalOptions {
     this.setTimeoutIfNeeded(modalOptions);
-    return <TwoChoicesModalOptions>{
+    return <TwoChoicesModalOptions> {
       ...modalOptions
     };
   }

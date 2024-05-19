@@ -13,10 +13,12 @@ export class UserProfileService {
   private static readonly SUCCESSFUL_UPDATE_MESSAGE: string = 'User profile updated';
   private static readonly USERS_END_POINT: string = ENVIRONMENT.SERVICE + '/users';
   userProfile: UserProfile;
+
   constructor(private httpService: HttpService, private bankAccountService: BankAccountService) {
-    this.bankAccountService.bankAccounts$.subscribe({
-      next: bankAccounts => this.userProfile.bankAccounts = bankAccounts
-    });
+    this.bankAccountService.bankAccounts$
+      .subscribe({
+        next: bankAccounts => this.userProfile.bankAccounts = bankAccounts
+      });
   }
 
   getUserProfile(): Observable<UserProfile> {
