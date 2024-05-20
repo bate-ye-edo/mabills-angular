@@ -29,11 +29,13 @@ export class CrudComponent {
 
   @Input()
   set data(data: Observable<DataModel>) {
-    data.subscribe(dataValue => {
-      this.dataSource = dataValue;
-      this.hasData = this.dataSource.data.length > 0;
-      this.colSpan = this.dataSource.columns.length + 1;
-    })
+    data.subscribe({
+      next: dataValue => {
+        this.dataSource = dataValue;
+        this.hasData = this.dataSource.data.length > 0;
+        this.colSpan = this.dataSource.columns.length + 1;
+      }
+    });
   }
 
   add(): void {

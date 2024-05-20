@@ -3,6 +3,7 @@
           [updateAction]="false"
           [emptyMessage]="emptyMessage"
           [isModal]="true"
-          (create)="showAddBankAccountModal()">
+          (create)="showAddBankAccountModal()"
+          (delete)="deleteBankAccount($event)">
 
 </app-crud>

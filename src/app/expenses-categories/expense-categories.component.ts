@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ExpenseCategoriesService} from "./expense-categories.service";
 import {ExpenseCategory} from "./expense-category.model";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
 import {ExpenseCategoryFieldsComponent} from "./expense-category-fields/expense-category-fields.component";
@@ -24,7 +23,6 @@ export class ExpenseCategoriesComponent implements OnInit {
   crudEmptyMessage: string = 'No expense categories found';
 
   constructor(private expensesCategoriesService: ExpenseCategoriesService,
-              private activeModal: NgbActiveModal,
               private showModalService: ShowModalService) {
     this.initializeDataModel();
   }

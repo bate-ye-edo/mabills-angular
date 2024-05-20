@@ -1,3 +1,5 @@
+import {InjectionToken} from "@angular/core";
+
 export interface TwoChoicesModalOptions {
   title: string;
   message: string;
@@ -7,7 +9,10 @@ export interface TwoChoicesModalOptions {
   cancelCallback?: (params?:any) => void;
   autoCloseOptions?: AutoCloseModalOptions;
 }
-export const TwoChoicesModalOptionsName: string = "TwoChoicesModalOptions";
+const TwoChoicesModalOptionsName: string = "TwoChoicesModalOptions";
+
+export const TwoChoicesModalOptionsSecret: InjectionToken<TwoChoicesModalOptions> =
+  new InjectionToken<TwoChoicesModalOptions>(TwoChoicesModalOptionsName);
 
 interface AutoCloseModalOptions {
   secondsToClose: number;

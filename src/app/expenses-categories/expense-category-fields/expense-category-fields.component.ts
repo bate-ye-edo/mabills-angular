@@ -1,9 +1,8 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, inject, Inject, Optional} from '@angular/core';
 import {TwoChoicesModalComponent} from "../../shared/two-options-modal/two-choices-modal.component";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {
-  TwoChoicesModalOptions,
-  TwoChoicesModalOptionsName
+  TwoChoicesModalOptionsSecret
 } from "../../shared/two-options-modal/two-choices-modal.options";
 import {FormControl} from "@angular/forms";
 import {ExpenseCategory} from "../expense-category.model";
@@ -17,9 +16,8 @@ import {ExpenseCategoriesComponent} from "../expense-categories.component";
 export class ExpenseCategoryFieldsComponent extends TwoChoicesModalComponent {
   nameFormControl: FormControl = new FormControl('', []);
 
-  constructor(@Inject(TwoChoicesModalOptionsName) options: TwoChoicesModalOptions, protected override activeModal: NgbActiveModal,
-              @Optional() @Inject(ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME) private expenseCategory: ExpenseCategory) {
-    super(options, activeModal);
+  constructor(@Optional() @Inject(ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME) private expenseCategory: ExpenseCategory) {
+    super(inject(TwoChoicesModalOptionsSecret), inject(NgbActiveModal));
     if(this.expenseCategory) {
       this.nameFormControl.setValue(this.expenseCategory.name);
     }

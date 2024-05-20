@@ -75,4 +75,14 @@ export class BankAccountModalComponent implements OnInit {
         }
       });
   }
+
+  deleteBankAccount(bankAccount: BankAccount) {
+    this.bankAccountService.deleteBankAccount(bankAccount)
+      .subscribe({
+        next: () => {
+          this.dataModel.data = this.dataModel.data.filter(ba => ba.uuid !== bankAccount.uuid);
+          this.dataModelSubject.next(this.dataModel);
+        }
+      });
+  }
 }

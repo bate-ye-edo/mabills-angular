@@ -1,10 +1,8 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
-  TwoChoicesModalOptions,
-  TwoChoicesModalOptionsName
+  TwoChoicesModalOptionsSecret
 } from "../../../shared/two-options-modal/two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {ExpenseCategoriesComponent} from "../../../expenses-categories/expense-categories.component";
 import {TwoChoicesModalComponent} from "../../../shared/two-options-modal/two-choices-modal.component";
 import {CreditCard} from "../../credit-card.model";
 import {FormControl, Validators} from "@angular/forms";
@@ -20,19 +18,10 @@ export class CreditCardFieldsComponent extends TwoChoicesModalComponent {
   creditCardNumberFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern('^[0-9]{15,16}$')]);
   bankAccounts: BankAccount[] = [];
   selectBankAccountFormControl: FormControl;
-  constructor(@Inject(TwoChoicesModalOptionsName) options: TwoChoicesModalOptions, protected override activeModal: NgbActiveModal,
-              @Optional() @Inject(ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME) private creditCard: CreditCard,
-              private userProfileService: UserProfileService) {
-    super(options, activeModal);
-    this.initializeFields();
+  constructor(private userProfileService: UserProfileService) {
+    super(inject(TwoChoicesModalOptionsSecret), inject(NgbActiveModal));
     this.bankAccounts = this.userProfileService.getUserBankAccounts();
     this.selectBankAccountFormControl = new FormControl({value:'', disabled: this.bankAccountsEmpty()});
-  }
-
-  private initializeFields() {
-    if(this.creditCard) {
-      this.creditCardNumberFormControl.setValue(this.creditCard.creditCardNumber);
-    }
   }
 
   override confirm(): void {

@@ -82,8 +82,8 @@ export class CreditCardModalComponent implements OnInit {
   deleteCreditCard(creditCard: CreditCard): void {
     this.creditCardService.deleteCreditCard(creditCard)
       .subscribe({
-        next: () =>{
-          this.dataModel.data = this.dataModel.data.filter(creditCard => creditCard.uuid !== creditCard.uuid);
+        next: () => {
+          this.dataModel.data = this.dataModel.data.filter(cd => creditCard.uuid != cd.uuid);
           this.dataModelSubject.next(this.dataModel);
         }
       })

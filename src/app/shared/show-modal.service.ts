@@ -1,7 +1,10 @@
 import {Injectable, Injector} from '@angular/core';
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "./two-options-modal/two-choices-modal.component";
-import {TwoChoicesModalOptions,TwoChoicesModalOptionsName} from "./two-options-modal/two-choices-modal.options";
+import {
+  TwoChoicesModalOptions,
+  TwoChoicesModalOptionsSecret
+} from "./two-options-modal/two-choices-modal.options";
 import {BACKDROP_MODAL} from "./modal-options";
 import {ModalProviderModel} from "./modal-provider.model";
 
@@ -20,7 +23,10 @@ export class ShowModalService {
   }
   private getProviders(modalOptions: TwoChoicesModalOptions, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
     return [
-      { provide: TwoChoicesModalOptionsName, useValue: this.getTwoChoicesModalOptionsModel(modalOptions) },
+      {
+        provide: TwoChoicesModalOptionsSecret,
+        useValue: this.getTwoChoicesModalOptionsModel(modalOptions)
+      },
       ...modalProviders
     ];
   }

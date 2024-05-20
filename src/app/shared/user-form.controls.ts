@@ -2,7 +2,7 @@ import {FormControl, ValidatorFn, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 
 export class UserFormControls {
-  private static readonly PASSWORD_PATTERN: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,@!$%*?&])[A-Za-z0-9.,@!$%*?&]{6,}$';
+  private static readonly PASSWORD_PATTERN: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.,@!$%*?&])[A-Za-z0-9.,@!$%*?&]{4,}$';
   private static readonly MOBILE_PATTERN: string = '[0-9]+';
   private static readonly USERNAME_PATTERN: string = '^[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,1}$';
   private static readonly PASSWORD_MIN_LENGTH: number = 6;
