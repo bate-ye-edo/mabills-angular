@@ -27,7 +27,7 @@ export class HeaderComponent {
     this.auth.logout();
   }
 
-  openExpensesCategoriesModal() {
+  showExpensesCategories() {
     this.showModalService.showModal(ExpenseCategoriesComponent, NO_BACK_DROP_MODAL);
   }
 }
