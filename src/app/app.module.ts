@@ -29,10 +29,15 @@ import { CrudComponent } from './shared/crud/crud.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreditCardModalComponent } from './user-profile/credit-card-modal/credit-card-modal.component';
 import { CreditCardFieldsComponent } from './user-profile/credit-card-modal/credit-card-fields/credit-card-fields.component';
-import {BillsComponent} from "./bills/bills.component";
+import {ExpensesComponent} from "./expenses/expenses.component";
 import {MatSelectModule} from "@angular/material/select";
 import { BankAccountModalComponent } from './user-profile/bank-account-modal/bank-account-modal.component';
 import { BankAccountFieldsComponent } from './user-profile/bank-account-modal/bank-account-fields/bank-account-fields.component';
+import { ExpenseFieldsComponent } from './expenses/expense-fields/expense-fields.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateModule} from "@angular/material/core";
+import {CustomDateAdapter} from "./shared/custom-date-adapter";
+
 
 @NgModule({
   declarations: [
@@ -47,33 +52,56 @@ import { BankAccountFieldsComponent } from './user-profile/bank-account-modal/ba
     UserProfileComponent,
     CreditCardModalComponent,
     CreditCardFieldsComponent,
-    BillsComponent,
+    ExpensesComponent,
     BankAccountModalComponent,
-    BankAccountFieldsComponent
+    BankAccountFieldsComponent,
+    ExpenseFieldsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        CoreModule,
-        RouterModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatIconModule,
-        NgbModule,
-        FormsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatTooltipModule,
-        MatTableModule,
-        MatListModule,
-        NgbModalModule,
-        MatSelectModule
-    ],
-  providers: [TokenInterceptor],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    CoreModule,
+    RouterModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    NgbModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatListModule,
+    NgbModalModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NativeDateModule,
+  ],
+  providers: [TokenInterceptor,
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: {month: 'short', year: 'numeric', day: 'numeric'},
+        },
+        display: {
+          dateInput: 'input',
+          monthYearLabel: {year: 'numeric', month: 'short'},
+          dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+          monthYearA11yLabel: {year: 'numeric', month: 'long'},
+        }
+      }
+    },
+    {
+      provide: DateAdapter,
+      useClass: CustomDateAdapter
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

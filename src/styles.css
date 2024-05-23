@@ -10,7 +10,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border:none;
 }
 
-.expense-category-modal-card .mat-mdc-form-field-error-wrapper {
+.modal-card .mat-mdc-form-field-error-wrapper {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }

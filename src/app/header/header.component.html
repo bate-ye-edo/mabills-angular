@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
-  <span class="mt-1 brand">MaBills<i class="bi bi-currency-bitcoin"></i></span>
+  <span class="mt-1 brand" routerLink="/expenses">MaBills<i class="bi bi-currency-bitcoin"></i></span>
   <button [matMenuTriggerFor]="loginRegisterMenu" mat-icon-button *ngIf="!userAuthenticated">
     <i class="bi bi-person-fill"></i>
   </button>
   <div *ngIf="userAuthenticated" class="d-flex flex-row">
+    <button mat-icon-button matTooltip="Expenses" routerLink="/expenses">
+      <i class="bi bi-cash"></i>
+    </button>
     <button mat-icon-button matTooltip="Expenses Categories"
       (click)="showExpensesCategories()">
-      <i class="bi bi-tag-fill"></i>
+      <i class="bi bi-bookmarks-fill"></i>
     </button>
   </div>
   <div *ngIf="userAuthenticated">

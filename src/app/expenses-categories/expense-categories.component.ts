@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ExpenseCategoriesService} from "./expense-categories.service";
-import {ExpenseCategory} from "./expense-category.model";
+import {ExpenseCategoriesService} from "../shared/user-profile/expense-categories.service";
+import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
 import {ExpenseCategoryFieldsComponent} from "./expense-category-fields/expense-category-fields.component";
@@ -123,10 +123,11 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   private initializeDataModel(): void {
-    this.dataModel = <DataModel>{};
-    this.dataModel.columns = [
-      {displayName: 'Name', fieldName: 'name'},
-      {displayName: 'Creation date', fieldName: 'creationDate'}
-    ];
+    this.dataModel = <DataModel>{
+      columns: [
+        {displayName: 'Name', fieldName: 'name'},
+        {displayName: 'Creation date', fieldName: 'creationDate'}
+      ]
+    };
   }
 }

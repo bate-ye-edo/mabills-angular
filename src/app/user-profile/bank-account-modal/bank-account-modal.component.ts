@@ -3,11 +3,11 @@ import {DataModel} from "../../shared/crud/data.model";
 import {Observable, Subject} from "rxjs";
 import {ColumnModel} from "../../shared/crud/column.model";
 import {ShowModalService} from "../../shared/show-modal.service";
-import {BankAccountService} from "./bank-account.service";
+import {BankAccountService} from "../../shared/user-profile/bank-account.service";
 import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
 import {BankAccountFieldsComponent} from "./bank-account-fields/bank-account-fields.component";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
-import {BankAccount} from "../bank-account.model";
+import {BankAccount} from "../../shared/user-profile/bank-account.model";
 
 @Component({
   selector: 'app-bank-account-modal',

@@ -4,10 +4,10 @@ import {
 } from "../../../shared/two-options-modal/two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "../../../shared/two-options-modal/two-choices-modal.component";
-import {CreditCard} from "../../credit-card.model";
+import {CreditCard} from "../../../shared/user-profile/credit-card.model";
 import {FormControl, Validators} from "@angular/forms";
-import {UserProfileService} from "../../user-profile.service";
-import {BankAccount} from "../../bank-account.model";
+import {UserProfileService} from "../../../shared/user-profile/user-profile.service";
+import {BankAccount} from "../../../shared/user-profile/bank-account.model";
 
 @Component({
   selector: 'app-credit-card-fields',

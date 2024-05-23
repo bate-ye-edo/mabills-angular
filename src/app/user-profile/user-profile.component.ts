@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {UserProfileService} from "./user-profile.service";
-import {User} from "@core/authentication/user.model";
+import {UserProfileService} from "../shared/user-profile/user-profile.service";
 import {UserFormControls} from "../shared/user-form.controls";
 import {ShowModalService} from "../shared/show-modal.service";
 import {CreditCardModalComponent} from "./credit-card-modal/credit-card-modal.component";
 import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
-import {UserProfile} from "./user-profile.model";
+import {UserProfile} from "../shared/user-profile/user-profile.model";
 import {BankAccountModalComponent} from "./bank-account-modal/bank-account-modal.component";
 
 @Component({

@@ -5,7 +5,7 @@ import {
   TwoChoicesModalOptionsSecret
 } from "../../shared/two-options-modal/two-choices-modal.options";
 import {FormControl} from "@angular/forms";
-import {ExpenseCategory} from "../expense-category.model";
+import {ExpenseCategory} from "../../shared/user-profile/expense-category.model";
 import {ExpenseCategoriesComponent} from "../expense-categories.component";
 
 @Component({

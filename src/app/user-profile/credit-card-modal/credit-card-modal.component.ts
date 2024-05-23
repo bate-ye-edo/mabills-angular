@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import { DataModel } from "../../shared/crud/data.model";
-import {CreditCardService} from "./credit-card.service";
+import {CreditCardService} from "../../shared/user-profile/credit-card.service";
 import {ColumnModel} from "../../shared/crud/column.model";
 import {ShowModalService} from "../../shared/show-modal.service";
 import {CreditCardFieldsComponent} from "./credit-card-fields/credit-card-fields.component";
 import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
-import {CreditCard} from "../credit-card.model";
+import {CreditCard} from "../../shared/user-profile/credit-card.model";
 
 @Component({
   selector: 'app-credit-card-modal',
