@@ -20,12 +20,13 @@ export class UserProfileService {
 
   constructor(private httpService: HttpService, private bankAccountService: BankAccountService,
               private creditCardService: CreditCardService, private expenseCategoriesService: ExpenseCategoriesService) {
+    this.initializeUserProfile();
     this.subscribeBankAccountsChanges();
     this.subscribeCreditCardsChanges();
     this.subscribeExpenseCategoriesChanges();
   }
 
-  initializeUserProfile(): void {
+  private initializeUserProfile(): void {
     if(!this.userProfile){
       this.getUserProfile().subscribe({
         next: userProfile => {
@@ -69,6 +70,7 @@ export class UserProfileService {
         }
       });
   }
+
   private subscribeCreditCardsChanges(): void {
     this.creditCardService.creditCards$
       .subscribe({

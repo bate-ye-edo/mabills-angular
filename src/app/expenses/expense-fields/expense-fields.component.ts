@@ -34,7 +34,6 @@ export class ExpenseFieldsComponent extends TwoChoicesModalComponent {
     this.userProfileService.userProfile$.subscribe({
       next: (userProfile: UserProfile) => this.initializeSelects(userProfile)
     });
-    this.userProfileService.initializeUserProfile();
     this.amountFormControl.setValue('0');
   }
 
