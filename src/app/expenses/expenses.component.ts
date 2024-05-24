@@ -61,6 +61,10 @@ export class ExpensesComponent implements OnInit {
       {
         displayName: 'Bank account',
         fieldName: 'bankAccount.iban'
+      },
+      {
+        displayName: 'Form of payment',
+        fieldName: 'formOfPayment'
       }
     ];
   }
@@ -88,8 +92,8 @@ export class ExpensesComponent implements OnInit {
   private createExpense(expense: Expense): void {
     this.expensesService.createExpense(expense)
       .subscribe({
-        next: () => {
-          this.expenses.data.push(expense);
+        next: (newExpense: Expense) => {
+          this.expenses.data.push(newExpense);
           this.expensesSubject.next(this.expenses);
         }
       });

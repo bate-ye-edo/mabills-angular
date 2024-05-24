@@ -13,7 +13,7 @@ export interface Expense {
   formOfPayment?: FormOfPayment;
 }
 
-export const enum FormOfPayment {
+export enum FormOfPayment {
   CARD = 'CARD',
   CASH = 'CASH',
   BANK_TRANSFER = 'BANK TRANSFER'

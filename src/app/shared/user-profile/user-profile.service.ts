@@ -14,19 +14,18 @@ import {ExpenseCategoriesService} from "./expense-categories.service";
 export class UserProfileService {
   private static readonly SUCCESSFUL_UPDATE_MESSAGE: string = 'User profile updated';
   private static readonly USERS_END_POINT: string = ENVIRONMENT.SERVICE + '/users';
-  userProfile: UserProfile;
   private userProfileSubject: Subject<UserProfile> = new Subject<UserProfile>();
   userProfile$: Observable<UserProfile> = this.userProfileSubject.asObservable();
+  userProfile: UserProfile;
 
   constructor(private httpService: HttpService, private bankAccountService: BankAccountService,
               private creditCardService: CreditCardService, private expenseCategoriesService: ExpenseCategoriesService) {
-    this.initializeUserProfile();
     this.subscribeBankAccountsChanges();
     this.subscribeCreditCardsChanges();
     this.subscribeExpenseCategoriesChanges();
   }
 
-  private initializeUserProfile(): void {
+  initializeUserProfile(): void {
     if(!this.userProfile){
       this.getUserProfile().subscribe({
         next: userProfile => {

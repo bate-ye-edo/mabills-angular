@@ -9,12 +9,16 @@ export class DataFormatterService {
   constructor() { }
 
   formatData(data: any): string {
+    const dataDateCheck: Date = new Date(data as string);
     switch (typeof data) {
       case 'object':
         return this.formatObjectByType(data);
       case 'number':
         return this.formatNumber(data);
       default:
+        if(dataDateCheck.toString() !== 'Invalid Date') {
+          return this.formatDate(data);
+        }
         return data;
     }
   }

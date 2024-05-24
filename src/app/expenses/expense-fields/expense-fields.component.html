@@ -13,11 +13,11 @@
         Expense amount should be a positive number
       </mat-error>
       <mat-error *ngIf="amountFormControl.hasError('pattern')" class="w-100">
-        Expense amount should be a number with comma as decimal separator
+        Amount should be a number with at most 3 decimal. Example: 123.454
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Expense date" [formControl]="expenseDateFormControl">
+      <input matInput [matDatepicker]="picker" placeholder="Expense date" [formControl]="expenseDateFormControl" required>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="expenseDateFormControl.hasError('required')" class="w-100">
@@ -62,7 +62,7 @@
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary" (click)="confirm()">{{ acceptText }}</button>
+    <button mat-button color="primary" (click)="confirm()" [disabled]="fieldsHaveError()">{{ acceptText }}</button>
     <button mat-button color="warn" (click)="cancel()">{{ cancelText }}</button>
   </mat-card-actions>
 </mat-card>
