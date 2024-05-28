@@ -8,6 +8,8 @@ import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 import {ExpenseFieldsComponent} from "./expense-fields/expense-fields.component";
 import {TwoChoicesModalOptions} from "../shared/two-options-modal/two-choices-modal.options";
 import {Expense} from "./expense.model";
+import {ExpenseCategoriesService} from "../shared/user-profile/expense-categories.service";
+import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
 
 @Component({
   selector: 'app-expenses',
@@ -21,9 +23,12 @@ export class ExpensesComponent implements OnInit {
   emptyMessage: string = 'No expenses found';
   expenses$: Observable<DataModel> = this.expensesSubject.asObservable();
 
-  constructor(private expensesService: ExpensesService, private showModalService: ShowModalService) {
+  constructor(private expensesService: ExpensesService, private showModalService: ShowModalService, private expenseCategoriesService: ExpenseCategoriesService) {
     this.expenses = this.initializeExpenses();
     this.expensesSubject.next(this.expenses);
+    this.expenseCategoriesService.expenseCategories$.subscribe({
+      next: expenseCategories => this.updateExpenseCategories(expenseCategories)
+    });
   }
 
   ngOnInit(): void {
@@ -97,6 +102,16 @@ export class ExpensesComponent implements OnInit {
           this.expensesSubject.next(this.expenses);
         }
       });
+  }
 
+  private updateExpenseCategories(expenseCategories: ExpenseCategory[]): void {
+    this.expenses.data = this.expenses.data
+      .map(expense => {
+        return <Expense>{
+          ...expense,
+          expenseCategory: expenseCategories.find(ec => ec.uuid === expense.expenseCategory.uuid) ?? null
+        }
+      });
+    this.expensesSubject.next(this.expenses);
   }
 }
