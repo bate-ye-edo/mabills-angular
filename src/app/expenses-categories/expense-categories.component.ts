@@ -64,15 +64,15 @@ export class ExpenseCategoriesComponent implements OnInit {
     };
   }
 
-  showEditExpenseCategoryModal(category: ExpenseCategory): void {
+  showUpdateExpenseCategoryModal(category: ExpenseCategory): void {
     this.showModalService.showTwoOptionsModal(
       NO_BACK_DROP_MODAL,
-      this.getEditExpenseCategoryModalOptions(category),
+      this.getUpdateExpenseCategoryModalOptions(category),
       ExpenseCategoryFieldsComponent,
-      [this.getEditExpenseCategoryModalProviders(category)]);
+      [this.getUpdateExpenseCategoryModalProviders(category)]);
   }
 
-  private getEditExpenseCategoryModalOptions(category: ExpenseCategory): TwoChoicesModalOptions {
+  private getUpdateExpenseCategoryModalOptions(category: ExpenseCategory): TwoChoicesModalOptions {
     return <TwoChoicesModalOptions>{
       title: 'Edit expense category',
       confirmText: 'Save',
@@ -100,7 +100,7 @@ export class ExpenseCategoriesComponent implements OnInit {
     return this.dataModel.data.map(exC => exC.uuid).indexOf(uuid);
   }
 
-  private getEditExpenseCategoryModalProviders(category:ExpenseCategory): ModalProviderModel {
+  private getUpdateExpenseCategoryModalProviders(category:ExpenseCategory): ModalProviderModel {
     return <ModalProviderModel> {
       provide: ExpenseCategoriesComponent.EXPENSE_CATEGORY_INPUT_NAME,
       useValue: category

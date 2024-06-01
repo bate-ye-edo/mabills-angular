@@ -21,6 +21,7 @@ export class ShowModalService {
       injector: Injector.create({providers: this.getProviders(modalComponentOptions, modalProviders)})
     });
   }
+
   private getProviders(modalOptions: TwoChoicesModalOptions, modalProviders: ModalProviderModel[] = []): ModalProviderModel[] {
     return [
       {
@@ -30,6 +31,7 @@ export class ShowModalService {
       ...modalProviders
     ];
   }
+
   private getTwoChoicesModalOptionsModel(modalOptions: TwoChoicesModalOptions): TwoChoicesModalOptions {
     this.setTimeoutIfNeeded(modalOptions);
     return <TwoChoicesModalOptions> {

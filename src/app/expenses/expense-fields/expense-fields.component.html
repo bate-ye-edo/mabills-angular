@@ -38,7 +38,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Credit card</mat-label>
-      <mat-select [formControl]="creditCardFormControl">
+      <mat-select [formControl]="creditCardFormControl" (selectionChange)="onCreditCardChanged()">
         <mat-option *ngFor="let cc of creditCards" [value]="cc">
           {{ cc.creditCardNumber }}
         </mat-option>
@@ -46,7 +46,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Bank account</mat-label>
-      <mat-select [formControl]="bankAccountFormControl">
+      <mat-select [formControl]="bankAccountFormControl" (selectionChange)="onBankAccountChanged()">
         <mat-option *ngFor="let ba of bankAccounts" [value]="ba">
           {{ ba.iban }}
         </mat-option>
@@ -54,7 +54,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Form of payment</mat-label>
-      <mat-select [formControl]="formOfPaymentFormControl">
+      <mat-select [formControl]="formOfPaymentFormControl" (selectionChange)="onFormOfPaymentChanged()">
         <mat-option *ngFor="let fop of formOfPayments" [value]="fop">
           {{ fop }}
         </mat-option>

@@ -1,6 +1,6 @@
 <app-crud [title]="crudTitle" [data]="dataModel$"
           [isModal]="true" [emptyMessage]="crudEmptyMessage"
           (create)="showAddExpenseCategoryModal()"
-          (update)="showEditExpenseCategoryModal($event)"
+          (update)="showUpdateExpenseCategoryModal($event)"
           (delete)="deleteExpenseCategory($event)">
 </app-crud>

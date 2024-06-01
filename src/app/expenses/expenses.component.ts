@@ -17,6 +17,8 @@ import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent implements OnInit {
+  static readonly EXPENSE_INJECTION_NAME: string = 'expense';
+
   private expensesSubject: Subject<DataModel> = new Subject<DataModel>();
   private readonly expenses: DataModel;
   title: string = 'Expenses';
@@ -113,5 +115,42 @@ export class ExpensesComponent implements OnInit {
         }
       });
     this.expensesSubject.next(this.expenses);
+  }
+
+  deleteExpense(expense: Expense): void {
+    this.expensesService.deleteExpense(expense)
+      .subscribe({
+        next: () => {
+          this.expenses.data = this.expenses.data.filter(e => e.uuid !== expense.uuid);
+          this.expensesSubject.next(this.expenses);
+        }
+      });
+  }
+
+  showUpdateExpenseModal(expense: Expense): void {
+    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL,
+      this.getUpdateExpenseModalOptions(),
+      ExpenseFieldsComponent,
+      [{provide: ExpensesComponent.EXPENSE_INJECTION_NAME, useValue: expense}]);
+  }
+
+  private getUpdateExpenseModalOptions(): TwoChoicesModalOptions {
+    return <TwoChoicesModalOptions>{
+      title: 'Update expense',
+      confirmText: 'Update',
+      cancelText: 'Cancel',
+      confirmCallback: (updatedExpense: Expense) => this.updateExpense(updatedExpense),
+    };
+  }
+
+  private updateExpense(updatedExpense: Expense): void {
+    this.expensesService.updateExpense(updatedExpense)
+      .subscribe({
+        next: (expense: Expense) => {
+          let indexToUpdate: number = this.expenses.data.map(e => e.uuid).indexOf(expense.uuid);
+          this.expenses.data[indexToUpdate] = expense;
+          this.expensesSubject.next(this.expenses);
+        }
+      });
   }
 }

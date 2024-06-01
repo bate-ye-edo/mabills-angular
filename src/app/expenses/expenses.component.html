@@ -4,6 +4,8 @@
   [emptyMessage]="emptyMessage"
   (create)="showAddExpenseModal()"
   class="mt-1"
+  (delete)="deleteExpense($event)"
+  (update)="showUpdateExpenseModal($event)"
 >
 
 </app-crud>
