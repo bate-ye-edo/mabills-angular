@@ -16,7 +16,7 @@ export class CrudComponent {
   @Input() addAction: boolean = true;
   @Input() updateAction: boolean = true;
   @Input() deleteAction: boolean = true;
-
+  @Input() dateFormat: string = '';
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
@@ -51,7 +51,7 @@ export class CrudComponent {
   }
 
   getDataFormatted(itemElement: any): string {
-    return this.dataFormatter.formatData(itemElement);
+    return this.dataFormatter.formatData(itemElement, this.dateFormat);
   }
 
   closeModal() {
