@@ -41,7 +41,7 @@ export class AuthService {
   private processSuccess(token: TokenDto): void {
     this.setTokenAndTimer(token);
     this.authenticatedSubject.next(true);
-    this.router.navigate(['/bills']);
+    this.router.navigate(['/expenses']).then();
   }
 
   getToken(): string {
@@ -70,7 +70,7 @@ export class AuthService {
     if(this.refreshTokenTimer){
       clearTimeout(this.refreshTokenTimer);
     }
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then();
   }
 
   register(registerDto: User): void {

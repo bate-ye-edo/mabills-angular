@@ -37,6 +37,8 @@ import { ExpenseFieldsComponent } from './expenses/expense-fields/expense-fields
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateModule} from "@angular/material/core";
 import {CustomDateAdapter} from "./shared/custom-date-adapter";
+import { IncomesComponent } from './incomes/incomes.component';
+import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import {CustomDateAdapter} from "./shared/custom-date-adapter";
     ExpensesComponent,
     BankAccountModalComponent,
     BankAccountFieldsComponent,
-    ExpenseFieldsComponent
+    ExpenseFieldsComponent,
+    IncomesComponent,
+    IncomeFieldsComponent
   ],
   imports: [
     BrowserModule,

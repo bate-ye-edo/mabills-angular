@@ -1,0 +1,12 @@
+<app-crud
+  (create)="showAddIncomeModal()"
+  (delete)="deleteIncome($event)"
+  (update)="showUpdateIncomeModal($event)"
+  [data]="incomes$"
+  [dateFormat]="dateFormat"
+  [emptyMessage]="emptyMessage"
+  [title]="title"
+  class="mt-1"
+>
+
+</app-crud>

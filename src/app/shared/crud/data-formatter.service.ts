@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as moment from "moment";
+import {DateFormat} from "../utils/date-format";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataFormatterService {
-  static readonly DATE_TIME_FORMAT: string = 'DD-MM-yyyy HH:mm';
   constructor() { }
 
   formatData(data: any, dateFormat: string): string {
@@ -46,6 +46,6 @@ export class DataFormatterService {
     if(testDate.isValid() && dateFormat.trim() !== '') {
       return dateFormat;
     }
-    return DataFormatterService.DATE_TIME_FORMAT;
+    return DateFormat.WITH_TIME;
   }
 }

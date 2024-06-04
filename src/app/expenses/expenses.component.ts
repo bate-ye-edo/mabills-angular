@@ -10,6 +10,7 @@ import {TwoChoicesModalOptions} from "../shared/two-options-modal/two-choices-mo
 import {Expense} from "./expense.model";
 import {ExpenseCategoriesService} from "../shared/user-profile/expense-categories.service";
 import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
+import {DateFormat} from "../shared/utils/date-format";
 
 @Component({
   selector: 'app-expenses',
@@ -24,6 +25,7 @@ export class ExpensesComponent implements OnInit {
   title: string = 'Expenses';
   emptyMessage: string = 'No expenses found';
   expenses$: Observable<DataModel> = this.expensesSubject.asObservable();
+  dateFormat: string = DateFormat.WITHOUT_TIME;
 
   constructor(private expensesService: ExpensesService, private showModalService: ShowModalService, private expenseCategoriesService: ExpenseCategoriesService) {
     this.expenses = this.initializeExpenses();
@@ -153,4 +155,5 @@ export class ExpensesComponent implements OnInit {
         }
       });
   }
+
 }
