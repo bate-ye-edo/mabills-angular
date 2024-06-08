@@ -52,7 +52,7 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   showAddExpenseCategoryModal(): void {
-    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryFieldsComponent);
+    this.showModalService.showTwoOptionsModal({...NO_BACK_DROP_MODAL, size: 'sm'}, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryFieldsComponent);
   }
 
   private getAddNewExpenseCategoryModalOptions(): TwoChoicesModalOptions {

@@ -4,7 +4,7 @@ import {Observable, Subject} from "rxjs";
 import {ColumnModel} from "../../shared/crud/column.model";
 import {ShowModalService} from "../../shared/show-modal.service";
 import {BankAccountService} from "../../shared/user-profile/bank-account.service";
-import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
+import {NO_BACK_DROP_MODAL_MEDIUM_SIZE} from "../../shared/modal-options";
 import {BankAccountFieldsComponent} from "./bank-account-fields/bank-account-fields.component";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
 import {BankAccount} from "../../shared/user-profile/bank-account.model";
@@ -54,7 +54,7 @@ export class BankAccountModalComponent implements OnInit {
   }
 
   showAddBankAccountModal(): void {
-    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddBankAccountModalOptions(), BankAccountFieldsComponent);
+    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL_MEDIUM_SIZE, this.getAddBankAccountModalOptions(), BankAccountFieldsComponent);
   }
 
   private getAddBankAccountModalOptions(): TwoChoicesModalOptions {

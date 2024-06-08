@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-header>
+    <div class="header-select-to-end w-100">
+      <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
+      <mat-form-field class="custom-form-field">
+        <mat-select [formControl]="orientationFormControl" (selectionChange)="changeOrientation()">
+          <mat-option value="horizontal" >
+            Horizontal
+          </mat-option>
+          <mat-option value="vertical">
+            Vertical
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-header>
+  <mat-card-content [class]="hasPadding()">
+    <ng-container *ngIf="showChart() else emptyMessage">
+      <ngx-charts-bar-vertical
+        [scheme]="options.scheme"
+        [results]="chart.data"
+        [xAxis]="options.xAxis"
+        [yAxis]="options.yAxis"
+        [legend]="options.legend"
+        [showXAxisLabel]="options.showXAxisLabel"
+        [showYAxisLabel]="options.showYAxisLabel"
+        [xAxisLabel]="options.xAxisLabel"
+        [yAxisLabel]="options.yAxisLabel"
+        [barPadding]="options.barPadding"
+        [animations]="options.animations"
+        (select)="options.select($event)"
+        *ngIf="isVertical()"
+      >
+      </ngx-charts-bar-vertical>
+      <ngx-charts-bar-horizontal
+        [scheme]="options.scheme"
+        [results]="chart.data"
+        [xAxis]="options.xAxis"
+        [yAxis]="options.yAxis"
+        [legend]="options.legend"
+        [showXAxisLabel]="options.showXAxisLabel"
+        [showYAxisLabel]="options.showYAxisLabel"
+        [xAxisLabel]="options.xAxisLabel"
+        [yAxisLabel]="options.yAxisLabel"
+        [barPadding]="options.barPadding"
+        [animations]="options.animations"
+        (select)="options.select($event)"
+        *ngIf="!isVertical()"
+      >
+      </ngx-charts-bar-horizontal>
+    </ng-container>
+    <ng-template #emptyMessage>
+      <p>There is no data to show in this chart</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

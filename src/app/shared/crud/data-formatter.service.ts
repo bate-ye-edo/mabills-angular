@@ -36,8 +36,18 @@ export class DataFormatterService {
   }
 
   private formatNumber(data: any): string {
-    const numberData = Number(data as number);
-    return numberData.toFixed(3);
+    const numberData: number = Number(data as number);
+    return numberData.toFixed(this.numberDecimalsToFixed(numberData));
+  }
+
+  private numberDecimalsToFixed(data: number): number {
+    const decimals: number = this.countDecimals(data);
+    return decimals > 3 ? 3 : decimals;
+  }
+
+  private countDecimals(value: number): number {
+    if(Math.floor(value) === value) return 0;
+    return value.toString().split(".")[1].length || 0;
   }
 
   private checkAndReturnDateFormat(dateFormat: string): string {

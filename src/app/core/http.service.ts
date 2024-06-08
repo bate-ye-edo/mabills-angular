@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {EMPTY, Observable, throwError} from 'rxjs';
+import {EMPTY, finalize, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Error} from "@core/error.model";
 import {ShowLoadingService} from "@core/show-loading.service";
+import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
   providedIn: 'root',
@@ -26,19 +27,6 @@ export class HttpService {
     this.resetOptions();
   }
 
-  param(key: string, value: string): this {
-    if (value != null) {
-      this.params = this.params.append(key, value);
-    }
-    return this;
-  }
-
-  paramsFrom(dto: any): this {
-    Object.getOwnPropertyNames(dto)
-      .forEach(item => this.param(item, dto[item]));
-    return this;
-  }
-
   successful(notification: string = 'Successful'): this {
     this.successfulNotification = notification;
     return this;
@@ -55,59 +43,47 @@ export class HttpService {
   }
 
   post(endpoint: string, body?: object): Observable<any> {
-    this.showLoadingService.showLoadingPage();
+    let modalRef: NgbModalRef = this.showLoadingService.showLoadingPage();
     return this.http
       .post(endpoint, body, this.createOptions())
       .pipe(
         map(response => this.extractData(response)),
-        catchError(error => this.handleError(error))
+        catchError(error => this.handleError(error)),
+        finalize(() => this.showLoadingService.hideLoadingPage(modalRef))
       );
   }
 
   get(endpoint: string): Observable<any> {
-    this.showLoadingService.showLoadingPage();
+    let modalRef: NgbModalRef = this.showLoadingService.showLoadingPage();
     return this.http
       .get(endpoint, this.createOptions())
       .pipe(
         map(response => this.extractData(response)),
-        catchError(error => this.handleError(error))
+        catchError(error => this.handleError(error)),
+        finalize(() => this.showLoadingService.hideLoadingPage(modalRef))
       );
   }
 
   put(endpoint: string, body?: object): Observable<any> {
-    this.showLoadingService.showLoadingPage();
+    let modalRef: NgbModalRef = this.showLoadingService.showLoadingPage();
     return this.http
       .put(endpoint, body, this.createOptions())
       .pipe(
         map(response => this.extractData(response)),
-        catchError(error => this.handleError(error))
-      );
-  }
-
-  patch(endpoint: string, body?: object): Observable<any> {
-    this.showLoadingService.showLoadingPage();
-    return this.http
-      .patch(endpoint, body, this.createOptions())
-      .pipe(
-        map(response => this.extractData(response)),
-        catchError(error => this.handleError(error))
+        catchError(error => this.handleError(error)),
+        finalize(() => this.showLoadingService.hideLoadingPage(modalRef))
       );
   }
 
   delete(endpoint: string): Observable<any> {
-    this.showLoadingService.showLoadingPage();
+    let modalRef: NgbModalRef = this.showLoadingService.showLoadingPage();
     return this.http
       .delete(endpoint, this.createOptions())
       .pipe(
         map(response => this.extractData(response)),
-        catchError(error => this.handleError(error)));
-  }
-
-  header(key: string, value: string): this {
-    if (value != null) {
-      this.headers = this.headers.append(key, value);
-    }
-    return this;
+        catchError(error => this.handleError(error)),
+        finalize(() => this.showLoadingService.hideLoadingPage(modalRef))
+      );
   }
 
   private resetOptions(): void {
@@ -128,7 +104,6 @@ export class HttpService {
   }
 
   private extractData(response: any): any {
-    this.showLoadingService.hideLoadingPage();
     if (this.successfulNotification) {
       this.snackBar.open(this.successfulNotification, '', {
         duration: 2000
@@ -156,7 +131,6 @@ export class HttpService {
   }
 
   private handleError(response: any): any {
-    this.showLoadingService.hideLoadingPage();
     let error: Error;
     if (response.status === HttpService.UNAUTHORIZED) {
       this.showError('Unauthorized');

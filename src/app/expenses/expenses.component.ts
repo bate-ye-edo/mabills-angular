@@ -113,7 +113,7 @@ export class ExpensesComponent implements OnInit {
       .map(expense => {
         return <Expense>{
           ...expense,
-          expenseCategory: expenseCategories.find(ec => ec.uuid === expense.expenseCategory.uuid) ?? null
+          expenseCategory: expenseCategories.find(ec => expense.expenseCategory && ec.uuid === expense.expenseCategory.uuid) ?? null
         }
       });
     this.expensesSubject.next(this.expenses);

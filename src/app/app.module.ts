@@ -39,6 +39,9 @@ import {DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateModule} fr
 import {CustomDateAdapter} from "./shared/custom-date-adapter";
 import { IncomesComponent } from './incomes/incomes.component';
 import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.component';
+import { ChartsComponent } from './charts/charts.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
 
 
 @NgModule({
@@ -59,7 +62,9 @@ import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.com
     BankAccountFieldsComponent,
     ExpenseFieldsComponent,
     IncomesComponent,
-    IncomeFieldsComponent
+    IncomeFieldsComponent,
+    ChartsComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +90,7 @@ import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.com
     MatDatepickerModule,
     MatNativeDateModule,
     NativeDateModule,
+    NgxChartsModule,
   ],
   providers: [TokenInterceptor,
     {

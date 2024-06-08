@@ -18,6 +18,7 @@ export class ShowModalService {
     modalComponentOptions = this.getTwoChoicesModalOptionsModel(modalComponentOptions);
     return this.modal.open(component || TwoChoicesModalComponent, {
       ...options,
+      size: this.calculateModalSize(options.size),
       injector: Injector.create({providers: this.getProviders(modalComponentOptions, modalProviders)})
     });
   }
@@ -49,7 +50,19 @@ export class ShowModalService {
   }
 
   showModal(modalComponent: any, options?: NgbModalOptions): NgbModalRef {
-    return this.modal.open(modalComponent, options || BACKDROP_MODAL);
+    return this.modal.open(modalComponent, {...options, size: this.calculateModalSize(options.size)} || BACKDROP_MODAL);
   }
 
+  private calculateModalSize(size?: string): 'sm' | 'lg' | 'xl' {
+    console.log(size);
+    console.log(!size);
+    if(!size){
+      const width: number = window.innerWidth;
+      if(width < 768){
+        return 'sm';
+      }
+      return 'lg';
+    }
+    return size as 'sm' | 'lg' | 'xl';
+  }
 }

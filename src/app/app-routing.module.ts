@@ -6,8 +6,10 @@ import {authGuard} from "./auth.guard";
 import {ExpensesComponent} from "./expenses/expenses.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {IncomesComponent} from "./incomes/incomes.component";
+import {ChartsComponent} from "./charts/charts.component";
 
 const routes: Routes = [
+  {path: 'charts', component: ChartsComponent, canActivate: [authGuard] },
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
   {path: 'expenses', component: ExpensesComponent, canActivate: [authGuard] },

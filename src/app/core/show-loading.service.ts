@@ -7,16 +7,13 @@ import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
   providedIn: 'root'
 })
 export class ShowLoadingService {
-  private modalRef: NgbModalRef;
   constructor(private modal: NgbModal) { }
 
-  showLoadingPage(): void {
-    this.modalRef = this.modal.open(LoadingComponent, {...NO_BACK_DROP_MODAL, windowClass: 'loading-modal'});
+  showLoadingPage(): NgbModalRef {
+    return this.modal.open(LoadingComponent, {...NO_BACK_DROP_MODAL, windowClass: 'loading-modal'});
   }
 
-  hideLoadingPage(): void {
-    if(this.modalRef){
-      this.modalRef.close();
-    }
+  hideLoadingPage(modalRef: NgbModalRef): void {
+    modalRef.close();
   }
 }

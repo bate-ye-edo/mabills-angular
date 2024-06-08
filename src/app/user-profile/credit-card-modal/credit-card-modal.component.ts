@@ -5,7 +5,7 @@ import {CreditCardService} from "../../shared/user-profile/credit-card.service";
 import {ColumnModel} from "../../shared/crud/column.model";
 import {ShowModalService} from "../../shared/show-modal.service";
 import {CreditCardFieldsComponent} from "./credit-card-fields/credit-card-fields.component";
-import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
+import {NO_BACK_DROP_MODAL_MEDIUM_SIZE} from "../../shared/modal-options";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
 import {CreditCard} from "../../shared/user-profile/credit-card.model";
 
@@ -57,7 +57,7 @@ export class CreditCardModalComponent implements OnInit {
   }
 
   showAddCreditCard(): void {
-    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL, this.getAddCreditCardModalOptions(), CreditCardFieldsComponent);
+    this.showModalService.showTwoOptionsModal(NO_BACK_DROP_MODAL_MEDIUM_SIZE, this.getAddCreditCardModalOptions(), CreditCardFieldsComponent);
   }
 
   private getAddCreditCardModalOptions(): TwoChoicesModalOptions {
