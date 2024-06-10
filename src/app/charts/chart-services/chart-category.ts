@@ -1,0 +1,5 @@
+export enum ChartCategory {
+  EXPENSES = 'EXPENSES',
+  INCOMES = 'INCOMES',
+  EXPENSE_INCOME_SERIES = 'EXPENSE_INCOME_SERIES'
+}

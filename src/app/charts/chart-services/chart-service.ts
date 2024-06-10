@@ -3,8 +3,11 @@ import {Observable} from "rxjs";
 
 export interface ChartService {
   getChartData(): Observable<Chart>;
+  addGroupBy(groupBy: string): void;
 }
 
-export interface SeriesService {
+export interface SeriesChartService {
   getSeriesData(): Observable<SeriesChart>;
+
+  addGroupBy(groupBy: string): void;
 }

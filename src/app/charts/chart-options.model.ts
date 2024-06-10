@@ -19,6 +19,7 @@ export interface ChartOptions {
   tooltipDisabled?: boolean;
   scheme?: string | Color;
   select?: (event: any) => void;
+  groupPadding?: number;
 }
 
 export const DEFAULT_CHART_OPTIONS: ChartOptions = {

@@ -40,8 +40,12 @@ import {CustomDateAdapter} from "./shared/custom-date-adapter";
 import { IncomesComponent } from './incomes/incomes.component';
 import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.component';
 import { ChartsComponent } from './charts/charts.component';
-import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { BarChartComponent } from './charts/simple-charts/bar-chart/bar-chart.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {AbstractChartComponent} from "./charts/AbstractChartComponent";
+import { PieChartComponent } from './charts/simple-charts/pie-chart/pie-chart.component';
+import { MultipleDataBarChartComponent } from './charts/multiple-data-chart/multiple-data-bar-chart/multiple-data-bar-chart.component';
+import {AbstractSeriesChartComponent} from "./charts/multiple-data-chart/AbstractSeriesChartComponent";
 
 
 @NgModule({
@@ -64,7 +68,11 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     IncomesComponent,
     IncomeFieldsComponent,
     ChartsComponent,
-    BarChartComponent
+    BarChartComponent,
+    AbstractChartComponent,
+    PieChartComponent,
+    MultipleDataBarChartComponent,
+    AbstractSeriesChartComponent
   ],
   imports: [
     BrowserModule,

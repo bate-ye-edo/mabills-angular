@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-header>
+    <div class="header-select-to-end w-100">
+      <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
+      <div class="select">
+        <mat-label class="me-1">Doughnut:</mat-label>
+        <mat-form-field class="custom-form-field">
+          <mat-select [formControl]="doughnutFormControl" (selectionChange)="changePieChartType()">
+            <mat-option value="true" >
+              Yes
+            </mat-option>
+            <mat-option value="false">
+              No
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content [class]="hasPadding()">
+    <ng-container *ngIf="showChart() else emptyMessage">
+      <ngx-charts-pie-chart
+        [results]="chart.data"
+        [legend]="true"
+        [doughnut]="doughnut"
+        [animations]="options.animations"
+        [scheme]="options.scheme"
+        (select)="options.select($event)"
+      >
+      </ngx-charts-pie-chart>
+    </ng-container>
+    <ng-template #emptyMessage>
+      <p>There is no data to show in this chart</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

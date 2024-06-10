@@ -9,7 +9,7 @@ export interface SeriesChartData {
 }
 
 export interface SeriesChart {
-  data: SeriesChartData[];
+  series: SeriesChartData[];
 }
 
 export interface Chart {

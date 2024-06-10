@@ -2,16 +2,19 @@
   <mat-card-header>
     <div class="header-select-to-end w-100">
       <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
-      <mat-form-field class="custom-form-field">
-        <mat-select [formControl]="orientationFormControl" (selectionChange)="changeOrientation()">
-          <mat-option value="horizontal" >
-            Horizontal
-          </mat-option>
-          <mat-option value="vertical">
-            Vertical
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="select">
+        <mat-label class="me-1">Orientation:</mat-label>
+        <mat-form-field class="custom-form-field">
+          <mat-select [formControl]="orientationFormControl" (selectionChange)="changeOrientation()">
+            <mat-option value="horizontal" >
+              Horizontal
+            </mat-option>
+            <mat-option value="vertical">
+              Vertical
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </mat-card-header>
   <mat-card-content [class]="hasPadding()">

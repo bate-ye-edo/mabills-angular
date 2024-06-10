@@ -1,0 +1,15 @@
+.mat-mdc-card-content {
+  height: 600px;
+}
+
+.header-select-to-end {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mat-mdc-form-field {
+  width: 8rem;
+  height: 4.2rem;
+}
+
