@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ENVIRONMENT} from "../../../environment/environment";
 import {HttpService} from "@core/http.service";
 import {CreditCard} from "./credit-card.model";
-import {Observable, Subject, tap} from "rxjs";
+import {finalize, Observable, Subject, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,10 @@ export class CreditCardService {
   deleteCreditCard(creditCard: CreditCard): Observable<any> {
     return this.httpService.delete(CreditCardService.END_POINT + '/' + creditCard.uuid)
       .pipe(
-        tap( _ => this.creditCardsSubject.next(this.creditCards.filter(cc => cc.uuid !== creditCard.uuid)))
+        finalize( () => {
+          this.creditCards = this.creditCards.filter(cc => cc.uuid !== creditCard.uuid);
+          this.creditCardsSubject.next(this.creditCards)
+        })
       );
   }
 }

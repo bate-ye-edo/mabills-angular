@@ -54,8 +54,6 @@ export class ShowModalService {
   }
 
   private calculateModalSize(size?: string): 'sm' | 'lg' | 'xl' {
-    console.log(size);
-    console.log(!size);
     if(!size){
       const width: number = window.innerWidth;
       if(width < 768){

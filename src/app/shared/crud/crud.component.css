@@ -34,3 +34,9 @@ span.mat-mdc-button-touch-target{
 .overflow-overlay {
   overflow: overlay;
 }
+
+.table-striped th, .table-striped td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

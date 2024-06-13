@@ -3,7 +3,7 @@ import {UserProfileService} from "../shared/user-profile/user-profile.service";
 import {UserFormControls} from "../shared/user-form.controls";
 import {ShowModalService} from "../shared/show-modal.service";
 import {CreditCardModalComponent} from "./credit-card-modal/credit-card-modal.component";
-import {NO_BACK_DROP_MODAL_MEDIUM_SIZE} from "../shared/modal-options";
+import {NO_BACK_DROP_MODAL_LARGE_SIZE, NO_BACK_DROP_MODAL_MEDIUM_SIZE} from "../shared/modal-options";
 import {UserProfile} from "../shared/user-profile/user-profile.model";
 import {BankAccountModalComponent} from "./bank-account-modal/bank-account-modal.component";
 
@@ -116,6 +116,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   showCreditCardsModal(): void {
-    this.showModalService.showModal(CreditCardModalComponent, NO_BACK_DROP_MODAL_MEDIUM_SIZE);
+    this.showModalService.showModal(CreditCardModalComponent, NO_BACK_DROP_MODAL_LARGE_SIZE);
   }
 }

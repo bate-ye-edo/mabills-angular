@@ -78,10 +78,6 @@ export class UserFormControls {
     return this.mobileFormControl.value as string;
   }
 
-  getUsernameFormControlValueObservable(): Observable<any>{
-    return this.usernameFormControl.valueChanges;
-  }
-
   getPasswordFormControlValueObservable(): Observable<any>{
     return this.passwordFormControl.valueChanges;
   }
@@ -92,11 +88,6 @@ export class UserFormControls {
 
   getMobileFormControlValueObservable(): Observable<any>{
     return this.mobileFormControl.valueChanges;
-  }
-
-  setUsernameFormControlValue(value: string): UserFormControls {
-    this.usernameFormControl.setValue(value);
-    return this;
   }
 
   setPasswordFormControlValue(value: string): UserFormControls {

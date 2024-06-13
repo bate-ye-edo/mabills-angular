@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BankAccount} from "./bank-account.model";
-import {Observable, Subject, tap} from "rxjs";
+import {finalize, Observable, Subject, tap} from "rxjs";
 import {ENVIRONMENT} from "../../../environment/environment";
 import {HttpService} from "@core/http.service";
 
@@ -31,7 +31,10 @@ export class BankAccountService {
   deleteBankAccount(bankAccount: BankAccount): Observable<any> {
     return this.httpService.delete(BankAccountService.END_POINT + '/' + bankAccount.uuid)
       .pipe(
-        tap( _ => this.bankAccountSubject.next(this.bankAccounts.filter(ba => ba.uuid !== bankAccount.uuid)))
+        finalize( () => {
+          this.bankAccounts = this.bankAccounts.filter(ba => ba.uuid !== bankAccount.uuid);
+          this.bankAccountSubject.next(this.bankAccounts);
+        })
       );
   }
 }

@@ -4,7 +4,7 @@ import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
 import {Observable, Subject} from "rxjs";
 import {ShowModalService} from "../shared/show-modal.service";
 import {ExpenseCategoryFieldsComponent} from "./expense-category-fields/expense-category-fields.component";
-import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
+import {NO_BACK_DROP_MODAL_SMALL_SIZE} from "../shared/modal-options";
 import {TwoChoicesModalOptions} from "../shared/two-options-modal/two-choices-modal.options";
 import {ModalProviderModel} from "../shared/modal-provider.model";
 import {DataModel} from "../shared/crud/data.model";
@@ -52,7 +52,10 @@ export class ExpenseCategoriesComponent implements OnInit {
   }
 
   showAddExpenseCategoryModal(): void {
-    this.showModalService.showTwoOptionsModal({...NO_BACK_DROP_MODAL, size: 'sm'}, this.getAddNewExpenseCategoryModalOptions(), ExpenseCategoryFieldsComponent);
+    this.showModalService.showTwoOptionsModal(
+      NO_BACK_DROP_MODAL_SMALL_SIZE,
+      this.getAddNewExpenseCategoryModalOptions(),
+      ExpenseCategoryFieldsComponent);
   }
 
   private getAddNewExpenseCategoryModalOptions(): TwoChoicesModalOptions {
@@ -66,7 +69,7 @@ export class ExpenseCategoriesComponent implements OnInit {
 
   showUpdateExpenseCategoryModal(category: ExpenseCategory): void {
     this.showModalService.showTwoOptionsModal(
-      NO_BACK_DROP_MODAL,
+      NO_BACK_DROP_MODAL_SMALL_SIZE,
       this.getUpdateExpenseCategoryModalOptions(category),
       ExpenseCategoryFieldsComponent,
       [this.getUpdateExpenseCategoryModalProviders(category)]);

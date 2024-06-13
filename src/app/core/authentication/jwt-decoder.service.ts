@@ -16,4 +16,8 @@ export class JwtDecoderService {
   getExpirationDateTimestamp(token: string): number {
     return this.decodeToken(token).exp*JwtDecoderService.SECONDS_TO_MILLISECONDS;
   }
+
+  isNotExpired(token: string): boolean {
+    return this.getExpirationDateTimestamp(token) > Date.now();
+  }
 }

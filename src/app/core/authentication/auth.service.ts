@@ -20,8 +20,7 @@ export class AuthService {
   static readonly LOGOUT_END_POINT = ENVIRONMENT.SERVICE+'/users/logout';
   static readonly REGISTER_END_POINT = ENVIRONMENT.SERVICE+'/users/register';
   static readonly REFRESH_TOKEN_END_POINT = ENVIRONMENT.SERVICE+'/users/refresh-token';
-
-  private tokenDto: TokenDto;
+  static readonly TOKEN_KEY: string = 'token';
   private refreshTokenTimer: number = undefined;
   private authenticatedSubject: Subject<boolean> = new Subject<boolean>();
   authenticatedObservable: Observable<boolean> = this.authenticatedSubject.asObservable();
@@ -45,15 +44,19 @@ export class AuthService {
   }
 
   getToken(): string {
-    if(this.tokenDto){
-      return this.tokenDto
-        .token;
+    if(this.isAuthenticated()){
+      return localStorage.getItem(AuthService.TOKEN_KEY);
     }
     return undefined;
   }
 
   isAuthenticated(): boolean {
-    return !!this.tokenDto;
+    let token: string = localStorage.getItem(AuthService.TOKEN_KEY);
+    if(token && this.jwtDecoder.isNotExpired(token)){
+      this.authenticatedSubject.next(true);
+      return true;
+    }
+    return false;
   }
 
   logout(): void {
@@ -65,7 +68,7 @@ export class AuthService {
   }
 
   private processSuccessLogout(): void {
-    this.tokenDto = undefined;
+    localStorage.removeItem(AuthService.TOKEN_KEY)
     this.authenticatedSubject.next(false);
     if(this.refreshTokenTimer){
       clearTimeout(this.refreshTokenTimer);
@@ -109,7 +112,7 @@ export class AuthService {
   }
 
   private setTokenAndTimer(token: TokenDto): void {
-    this.tokenDto = token;
+    localStorage.setItem(AuthService.TOKEN_KEY, token.token);
     this.setRefreshTokenTimer();
   }
 
@@ -121,7 +124,7 @@ export class AuthService {
   }
 
   private getRefreshTokenSeconds(): number {
-    return this.jwtDecoder.getExpirationDateTimestamp(this.tokenDto.token) -
+    return this.jwtDecoder.getExpirationDateTimestamp(this.getToken()) -
       (Date.now() + ENVIRONMENT.MILLISECONDS_FOR_REFRESH_TOKEN);
   }
 
