@@ -6,6 +6,7 @@ import {ChartService} from "./chart-services/chart-service";
 import {ChartOptions, DEFAULT_CHART_OPTIONS} from "./chart-options.model";
 import {Color} from "@swimlane/ngx-charts";
 import {MaterialColorGenerator} from "./MaterialColorGenerator";
+import {ChartGroupByLabel} from "./chart-group-by-label";
 
 @Component({
   template: ''
@@ -13,6 +14,9 @@ import {MaterialColorGenerator} from "./MaterialColorGenerator";
 export class AbstractChartComponent implements OnInit {
 
   @Input() chartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  @Input() groupByList: string[] = [];
+  @Input() defaultGroupBy: string = '';
+
   chart: Chart;
   barChartType: BarChartType = 'vertical';
   title: string;
@@ -27,14 +31,14 @@ export class AbstractChartComponent implements OnInit {
     this.options = this.chartOptionsServiceWrapper.chartOptions;
     this.title = this.options.title;
     this.barChartType = this.options.barChartType;
+    if(this.defaultGroupBy) {
+      this.chartService.setGroupBy(this.defaultGroupBy);
+    }
     this.getChartData();
   }
 
   protected getChartData() {
     if(this.chartService) {
-      if(this.chartOptionsServiceWrapper.groupBy) {
-        this.chartService.addGroupBy(this.chartOptionsServiceWrapper.groupBy);
-      }
       this.chartService.getChartData()
         .subscribe((data: Chart) => {
           if(this.chartOptionsServiceWrapper.generateColor) {
@@ -54,6 +58,10 @@ export class AbstractChartComponent implements OnInit {
       return 'p-0';
     }
     return '';
+  }
+
+  getGroupByLabel(groupBy: string) {
+    return ChartGroupByLabel[groupBy];
   }
 
   private generateColors(data: ChartData[]): void {

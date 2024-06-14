@@ -1,4 +1,0 @@
-export enum ExpenseChartGroupBy {
-  EXPENSE_CATEGORY = 'EXPENSE_CATEGORY',
-  EXPENSE_DATE = 'EXPENSE_DATE'
-}

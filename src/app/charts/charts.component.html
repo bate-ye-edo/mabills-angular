@@ -28,11 +28,21 @@
   <div class="col-lg-6 col-md-12 col-sm-12">
     <app-pie-chart
       [chartOptionsServiceWrapper]="expensesPieChartOptionsServiceWrapper"
+      [groupByList]="[ExpenseChartGroupBy.EXPENSE_CATEGORY, ExpenseChartGroupBy.EXPENSE_CREDIT_CARD, ExpenseChartGroupBy.EXPENSE_FORM_OF_PAYMENT, ExpenseChartGroupBy.EXPENSE_BANK_ACCOUNT]"
+      [defaultGroupBy]="ExpenseChartGroupBy.EXPENSE_CREDIT_CARD"
       class="chart-height"
     >
     </app-pie-chart>
   </div>
+
   <div class="col-lg-6 col-md-12 col-sm-12">
+    <app-pie-chart
+      [chartOptionsServiceWrapper]="incomesPieChartOptionsServiceWrapper"
+      [groupByList]="[IncomeChartGroupBy.INCOME_CREDIT_CARD, IncomeChartGroupBy.INCOME_BANK_ACCOUNT]"
+      [defaultGroupBy]="IncomeChartGroupBy.INCOME_CREDIT_CARD"
+      class="chart-height"
+    >
+    </app-pie-chart>
   </div>
 </div>
 

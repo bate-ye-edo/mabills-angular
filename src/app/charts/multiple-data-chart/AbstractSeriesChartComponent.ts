@@ -20,9 +20,6 @@ export class AbstractSeriesChartComponent extends AbstractChartComponent {
 
   override getChartData(): void {
     if(this.seriesChartService) {
-      if (this.chartOptionsServiceWrapper.groupBy) {
-        this.seriesChartService.addGroupBy(this.chartOptionsServiceWrapper.groupBy);
-      }
       this.seriesChartService.getSeriesData()
         .subscribe((data: SeriesChart) => {
           this.seriesChart = data;

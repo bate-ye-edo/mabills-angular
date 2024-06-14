@@ -3,9 +3,8 @@ import {ChartOptionsServiceWrapper} from "./chart-options-service-wrapper";
 import {DEFAULT_CHART_OPTIONS} from "./chart-options.model";
 import {ChartServiceFactory} from "./chart-services/chart-service-factory";
 import {ChartCategory} from "./chart-services/chart-category";
-import {ExpenseChartGroupBy} from "./chart-services/expense-chart-group-by";
-import {ExpenseCategoriesService} from "../shared/user-profile/expense-categories.service";
-import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
+import {ExpenseChartGroupBy} from "./expense-chart-group-by";
+import {IncomeChartGroupBy} from "./income-chart-group-by";
 
 @Component({
   selector: 'app-charts',
@@ -13,24 +12,21 @@ import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent {
-  expensesChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
-  incomeChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
-  expenseIncomeByDateSeriesChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
-  expensesPieChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  protected expensesChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  protected incomeChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  protected expenseIncomeByDateSeriesChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  protected expensesPieChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
+  protected incomesPieChartOptionsServiceWrapper: ChartOptionsServiceWrapper;
 
-  private expenseCategoriesCount: number = 1;
+  protected readonly IncomeChartGroupBy = IncomeChartGroupBy;
+  protected readonly ExpenseChartGroupBy = ExpenseChartGroupBy;
 
-  constructor(private chartServiceFactory: ChartServiceFactory,
-              private expenseCategoriesService: ExpenseCategoriesService) {
+  constructor(private chartServiceFactory: ChartServiceFactory) {
     this.initializeExpenseChartOptionsServiceWrapper();
     this.initializeIncomeChartOptionsServiceWrapper();
     this.initializeExpenseIncomeByDateSeriesChartOptionsServiceWrapper();
     this.initializeExpensePieChartOptionsServiceWrapper();
-    this.expenseCategoriesService.expenseCategories$.subscribe({
-      next: (expenseCategories: ExpenseCategory[]) => {
-        this.expenseCategoriesCount = expenseCategories.length;
-      }
-    });
+    this.initializeIncomesPieChartOptionsServiceWrapper();
   }
 
   private initializeExpenseChartOptionsServiceWrapper(): void {
@@ -89,11 +85,24 @@ export class ChartsComponent {
     this.expensesPieChartOptionsServiceWrapper = <ChartOptionsServiceWrapper> {
       chartOptions: {
         ...DEFAULT_CHART_OPTIONS,
-        title: 'Expenses by category',
+        title: 'Expenses by credit card',
         legend: true,
       },
       chartService: this.chartServiceFactory.createChartService(ChartCategory.EXPENSES),
-      groupBy: ExpenseChartGroupBy.EXPENSE_CATEGORY,
+      groupBy: ExpenseChartGroupBy.EXPENSE_CREDIT_CARD,
+      generateColor: true
+    }
+  }
+
+  private initializeIncomesPieChartOptionsServiceWrapper(): void {
+    this.incomesPieChartOptionsServiceWrapper = <ChartOptionsServiceWrapper> {
+      chartOptions: {
+        ...DEFAULT_CHART_OPTIONS,
+        title: 'Incomes by credit card',
+        legend: true,
+      },
+      chartService: this.chartServiceFactory.createChartService(ChartCategory.INCOMES),
+      groupBy: IncomeChartGroupBy.INCOME_CREDIT_CARD,
       generateColor: true
     }
   }

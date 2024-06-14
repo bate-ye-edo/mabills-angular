@@ -6,20 +6,24 @@ import {HttpService} from "@core/http.service";
 export abstract class AbstractChartService implements ChartService {
   private httpService: HttpService;
   protected chartEndpoint: string;
-  protected groupBy: string = '';
+  protected groupBy: string = undefined;
 
   protected constructor(httpService: HttpService) {
     this.httpService = httpService;
   }
 
   getChartData(): Observable<Chart> {
-    return this.httpService.get(this.chartEndpoint+this.groupBy)
+    return this.httpService.get(this.chartEndpoint+this.getGroupByString())
       .pipe(
-        finalize(() => this.groupBy = '')
+        finalize(() => this.groupBy = undefined)
       );
   }
 
-  addGroupBy(groupBy: string): void {
+  setGroupBy(groupBy: string): void {
     this.groupBy = '/' + groupBy;
+  }
+
+  private getGroupByString(): string {
+    return this.groupBy ? this.groupBy : '';
   }
 }
