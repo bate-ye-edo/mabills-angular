@@ -1,9 +1,7 @@
 import {Component, inject, Inject, Optional} from '@angular/core';
 import {TwoChoicesModalComponent} from "../../shared/two-options-modal/two-choices-modal.component";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {
-  TwoChoicesModalOptionsSecret
-} from "../../shared/two-options-modal/two-choices-modal.options";
+import {TwoChoicesModalOptionsSecret} from "../../shared/two-options-modal/two-choices-modal.options";
 import {FormControl} from "@angular/forms";
 import {ExpenseCategory} from "../../shared/user-profile/expense-category.model";
 import {ExpenseCategoriesComponent} from "../expense-categories.component";

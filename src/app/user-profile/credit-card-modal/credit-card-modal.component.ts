@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from "rxjs";
-import { DataModel } from "../../shared/crud/data.model";
+import {DataModel} from "../../shared/crud/data.model";
 import {CreditCardService} from "../../shared/user-profile/credit-card.service";
 import {ColumnModel} from "../../shared/crud/column.model";
 import {ShowModalService} from "../../shared/show-modal.service";
