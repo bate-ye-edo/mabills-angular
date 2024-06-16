@@ -1,0 +1,91 @@
+<div class="row row-cols-sm-auto">
+  <div class="col-lg-3 col-sm-3 col-md-3 d-flex justify-content-start align-items-center flex-row">
+    <h3 class="m-0">{{filterName}}</h3>
+  </div>
+  <div class="col-lg-2 col-sm-2 col-md-2">
+    <select class="form-select" [formControl]="filterTypeFormControl" (change)="onDateComparisonsChanged()">
+      <option [value]="FilterComparisons.GREATER_THAN"> > </option>
+      <option [value]="FilterComparisons.LESS_THAN"><</option>
+      <option [value]="FilterComparisons.EQUAL">=</option>
+      <option [value]="FilterComparisons.GREATER_THAN_OR_EQUAL"> >= </option>
+      <option [value]="FilterComparisons.LESS_THAN_OR_EQUAL"> <= </option>
+      <option [value]="FilterComparisons.NOT_EQUAL"> != </option>
+      <option [value]="FilterComparisons.BETWEEN"> Between </option>
+    </select>
+  </div>
+  <ng-container *ngIf="!hasBetween else dateRangeTemplate">
+    <div class="{{oneDatePickerClass}}">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          [formControl]="filterValueFormControl"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          (dateSelect)="onDateChanged()"
+          (input)="onDateChanged()"
+        />
+        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #dateRangeTemplate>
+      <div class="{{twoDatePickerClass}}">
+        <div class="dp-hidden position-absolute">
+          <div class="input-group">
+            <input
+              name="datepicker"
+              class="form-control"
+              ngbDatepicker
+              #datepicker="ngbDatepicker"
+              [autoClose]="'outside'"
+              (dateSelect)="onDateSelection($event)"
+              [displayMonths]="2"
+              [dayTemplate]="t"
+              outsideDays="hidden"
+              [startDate]="fromDate"
+              tabindex="-1"
+            />
+            <ng-template #t let-date let-focused="focused">
+              <span
+                class="custom-day"
+                [class.focused]="focused"
+                [class.range]="isRange(date)"
+                [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null"
+              >
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="input-group">
+          <input
+            #dpFromDate
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dpFromDate"
+            [value]="formatter.format(fromDate)"
+            (input)="fromDateChanged(dpFromDate.value)"
+          />
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+        </div>
+      </div>
+      <div class="{{twoDatePickerClassWithOffset}}">
+        <div class="input-group">
+          <input
+            #dpToDate
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dpToDate"
+            [value]="formatter.format(toDate)"
+            (input)="toDateChanged(dpToDate.value)"
+          />
+          <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+        </div>
+      </div>
+  </ng-template>
+</div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from "@core/http.service";
 import {ENVIRONMENT} from "../../../environment/environment";
 import {TokenDto} from "@core/authentication/token.dto";

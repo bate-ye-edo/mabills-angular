@@ -1,13 +1,12 @@
 import {Component, inject} from '@angular/core';
-import {
-  TwoChoicesModalOptionsSecret
-} from "../../../shared/two-options-modal/two-choices-modal.options";
+import {TwoChoicesModalOptionsSecret} from "../../../shared/two-options-modal/two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "../../../shared/two-options-modal/two-choices-modal.component";
 import {CreditCard} from "../../../shared/user-profile/credit-card.model";
 import {FormControl, Validators} from "@angular/forms";
 import {UserProfileService} from "../../../shared/user-profile/user-profile.service";
 import {BankAccount} from "../../../shared/user-profile/bank-account.model";
+import {PATTERNS} from "../../../shared/patterns";
 
 @Component({
   selector: 'app-credit-card-fields',
@@ -15,7 +14,7 @@ import {BankAccount} from "../../../shared/user-profile/bank-account.model";
   styleUrls: ['./credit-card-fields.component.css']
 })
 export class CreditCardFieldsComponent extends TwoChoicesModalComponent {
-  creditCardNumberFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern('^[0-9]{15,16}$')]);
+  creditCardNumberFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern(PATTERNS.CREDIT_CARD)]);
   bankAccounts: BankAccount[] = [];
   selectBankAccountFormControl: FormControl;
   constructor(private userProfileService: UserProfileService) {

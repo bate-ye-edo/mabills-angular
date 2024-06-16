@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-lg-3 col-sm-3 col-md-3 d-flex justify-content-start align-items-center flex-row">
+    <h3 class="m-0">{{filterName}}</h3>
+  </div>
+  <div class="col-lg-2 col-sm-2 col-md-2">
+    <select class="form-select" [formControl]="filterTypeFormControl" (change)="onFilterChanged()">
+      <option [value]="FilterComparisons.GREATER_THAN"> > </option>
+      <option [value]="FilterComparisons.LESS_THAN"><</option>
+      <option [value]="FilterComparisons.EQUAL">=</option>
+      <option [value]="FilterComparisons.GREATER_THAN_OR_EQUAL"> >= </option>
+      <option [value]="FilterComparisons.LESS_THAN_OR_EQUAL"> <= </option>
+      <option [value]="FilterComparisons.NOT_EQUAL"> != </option>
+    </select>
+  </div>
+  <div class="col-lg-5 col-sm-5 col-md-5">
+    <input type="text" class="form-control" placeholder="{{filterName}}" [formControl]="filterValueFormControl" (input)="onFilterChanged()"/>
+    <div *ngIf="filterValueFormControl.hasError('pattern')" class="{{this.AlertClasses}}">
+      {{ filterName }} should be a positive number with at most 3 decimal. Example: 123.454
+    </div>
+  </div>
+</div>

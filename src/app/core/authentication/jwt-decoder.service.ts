@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {jwtDecode} from "jwt-decode";
 import {TokenModel} from "@core/authentication/token.model";
 
@@ -6,11 +6,11 @@ import {TokenModel} from "@core/authentication/token.model";
   providedIn: 'root'
 })
 export class JwtDecoderService {
-  static SECONDS_TO_MILLISECONDS: number = 1000;
+  static readonly SECONDS_TO_MILLISECONDS: number = 1000;
   constructor() { }
 
   private decodeToken(token: string): TokenModel {
-    return jwtDecode(token) as TokenModel;
+    return jwtDecode(token);
   }
 
   getExpirationDateTimestamp(token: string): number {

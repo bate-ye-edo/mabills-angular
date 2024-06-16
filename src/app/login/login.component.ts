@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "@core/authentication/auth.service";
 import {FormControl, Validators} from "@angular/forms";
 

@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TokenInterceptor} from "@core/authentication/token.interceptor";
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HeaderComponent } from './header/header.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {HeaderComponent} from './header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {CoreModule} from "@core/core.module";
 import {RouterModule} from "@angular/router";
@@ -20,32 +20,46 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { TwoChoicesModalComponent } from './shared/two-options-modal/two-choices-modal.component';
-import { ExpenseCategoriesComponent } from './expenses-categories/expense-categories.component';
+import {TwoChoicesModalComponent} from './shared/two-options-modal/two-choices-modal.component';
+import {ExpenseCategoriesComponent} from './expenses-categories/expense-categories.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
-import { ExpenseCategoryFieldsComponent } from './expenses-categories/expense-category-fields/expense-category-fields.component';
-import { CrudComponent } from './shared/crud/crud.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { CreditCardModalComponent } from './user-profile/credit-card-modal/credit-card-modal.component';
-import { CreditCardFieldsComponent } from './user-profile/credit-card-modal/credit-card-fields/credit-card-fields.component';
+import {
+  ExpenseCategoryFieldsComponent
+} from './expenses-categories/expense-category-fields/expense-category-fields.component';
+import {CrudComponent} from './shared/crud/crud.component';
+import {UserProfileComponent} from './user-profile/user-profile.component';
+import {CreditCardModalComponent} from './user-profile/credit-card-modal/credit-card-modal.component';
+import {
+  CreditCardFieldsComponent
+} from './user-profile/credit-card-modal/credit-card-fields/credit-card-fields.component';
 import {ExpensesComponent} from "./expenses/expenses.component";
 import {MatSelectModule} from "@angular/material/select";
-import { BankAccountModalComponent } from './user-profile/bank-account-modal/bank-account-modal.component';
-import { BankAccountFieldsComponent } from './user-profile/bank-account-modal/bank-account-fields/bank-account-fields.component';
-import { ExpenseFieldsComponent } from './expenses/expense-fields/expense-fields.component';
+import {BankAccountModalComponent} from './user-profile/bank-account-modal/bank-account-modal.component';
+import {
+  BankAccountFieldsComponent
+} from './user-profile/bank-account-modal/bank-account-fields/bank-account-fields.component';
+import {ExpenseFieldsComponent} from './expenses/expense-fields/expense-fields.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateModule} from "@angular/material/core";
 import {CustomDateAdapter} from "./shared/custom-date-adapter";
-import { IncomesComponent } from './incomes/incomes.component';
-import { IncomeFieldsComponent } from './incomes/income-fields/income-fields.component';
-import { ChartsComponent } from './charts/charts.component';
-import { BarChartComponent } from './charts/simple-charts/bar-chart/bar-chart.component';
+import {IncomesComponent} from './incomes/incomes.component';
+import {IncomeFieldsComponent} from './incomes/income-fields/income-fields.component';
+import {ChartsComponent} from './charts/charts.component';
+import {BarChartComponent} from './charts/simple-charts/bar-chart/bar-chart.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {AbstractChartComponent} from "./charts/AbstractChartComponent";
-import { PieChartComponent } from './charts/simple-charts/pie-chart/pie-chart.component';
-import { MultipleDataBarChartComponent } from './charts/multiple-data-chart/multiple-data-bar-chart/multiple-data-bar-chart.component';
+import {PieChartComponent} from './charts/simple-charts/pie-chart/pie-chart.component';
+import {
+  MultipleDataBarChartComponent
+} from './charts/multiple-data-chart/multiple-data-bar-chart/multiple-data-bar-chart.component';
 import {AbstractSeriesChartComponent} from "./charts/multiple-data-chart/AbstractSeriesChartComponent";
+import {FiltersComponent} from './filters/filters.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {NumberFilterComponent} from './filters/number-filter/number-filter.component';
+import {TextFilterComponent} from './filters/text-filter/text-filter.component';
+import {DateFilterComponent} from './filters/date-filter/date-filter.component';
+import {AbstractFilterComponent} from "./filters/AbstractFilterComponent";
 
 
 @NgModule({
@@ -72,7 +86,12 @@ import {AbstractSeriesChartComponent} from "./charts/multiple-data-chart/Abstrac
     AbstractChartComponent,
     PieChartComponent,
     MultipleDataBarChartComponent,
-    AbstractSeriesChartComponent
+    AbstractSeriesChartComponent,
+    FiltersComponent,
+    NumberFilterComponent,
+    TextFilterComponent,
+    DateFilterComponent,
+    AbstractFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +118,7 @@ import {AbstractSeriesChartComponent} from "./charts/multiple-data-chart/Abstrac
     MatNativeDateModule,
     NativeDateModule,
     NgxChartsModule,
+    MatExpansionModule,
   ],
   providers: [TokenInterceptor,
     {

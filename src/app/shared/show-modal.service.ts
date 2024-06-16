@@ -1,10 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {TwoChoicesModalComponent} from "./two-options-modal/two-choices-modal.component";
-import {
-  TwoChoicesModalOptions,
-  TwoChoicesModalOptionsSecret
-} from "./two-options-modal/two-choices-modal.options";
+import {TwoChoicesModalOptions, TwoChoicesModalOptionsSecret} from "./two-options-modal/two-choices-modal.options";
 import {BACKDROP_MODAL} from "./modal-options";
 import {ModalProviderModel} from "./modal-provider.model";
 
@@ -50,7 +47,8 @@ export class ShowModalService {
   }
 
   showModal(modalComponent: any, options?: NgbModalOptions): NgbModalRef {
-    return this.modal.open(modalComponent, {...options, size: this.calculateModalSize(options.size)} || BACKDROP_MODAL);
+    const validOptions: NgbModalOptions = options || BACKDROP_MODAL;
+    return this.modal.open(modalComponent, {...validOptions, size: this.calculateModalSize(options.size)});
   }
 
   private calculateModalSize(size?: string): 'sm' | 'lg' | 'xl' {

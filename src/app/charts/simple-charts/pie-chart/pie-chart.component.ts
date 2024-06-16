@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractChartComponent} from "../../AbstractChartComponent";
 import {FormControl} from "@angular/forms";
 import {ChartTitlesByGroupByOption} from "../../chart-titles-by-group-by-option";

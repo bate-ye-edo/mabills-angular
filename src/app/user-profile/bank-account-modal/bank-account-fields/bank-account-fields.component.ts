@@ -3,6 +3,7 @@ import {TwoChoicesModalComponent} from "../../../shared/two-options-modal/two-ch
 import {TwoChoicesModalOptionsSecret} from "../../../shared/two-options-modal/two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, Validators} from "@angular/forms";
+import {PATTERNS} from "../../../shared/patterns";
 
 @Component({
   selector: 'app-bank-account-fields',
@@ -10,8 +11,7 @@ import {FormControl, Validators} from "@angular/forms";
   styleUrls: ['./bank-account-fields.component.css']
 })
 export class BankAccountFieldsComponent extends TwoChoicesModalComponent {
-  static readonly IBAN_REGEX: string = '^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$';
-  ibanFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern(BankAccountFieldsComponent.IBAN_REGEX)]);
+  ibanFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern(PATTERNS.IBAN)]);
 
   constructor() {
     super(inject(TwoChoicesModalOptionsSecret), inject(NgbActiveModal));

@@ -11,6 +11,10 @@ import {Expense} from "./expense.model";
 import {ExpenseCategoriesService} from "../shared/user-profile/expense-categories.service";
 import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
 import {DateFormat} from "../shared/utils/date-format";
+import {FilterOptions} from "../filters/filter-options";
+import {FilterField} from "../shared/filters/filter-field";
+import {PATTERNS} from "../shared/patterns";
+import {FilterDto} from "../shared/filters/filter.dto";
 
 @Component({
   selector: 'app-expenses',
@@ -26,6 +30,7 @@ export class ExpensesComponent implements OnInit {
   emptyMessage: string = 'No expenses found';
   expenses$: Observable<DataModel> = this.expensesSubject.asObservable();
   dateFormat: string = DateFormat.WITHOUT_TIME;
+  filters: FilterOptions[];
 
   constructor(private expensesService: ExpensesService, private showModalService: ShowModalService, private expenseCategoriesService: ExpenseCategoriesService) {
     this.expenses = this.initializeExpenses();
@@ -33,6 +38,7 @@ export class ExpensesComponent implements OnInit {
     this.expenseCategoriesService.expenseCategories$.subscribe({
       next: expenseCategories => this.updateExpenseCategories(expenseCategories)
     });
+    this.initializeFilters();
   }
 
   ngOnInit(): void {
@@ -156,4 +162,53 @@ export class ExpensesComponent implements OnInit {
       });
   }
 
+  private initializeFilters(): void {
+    this.filters = [
+      <FilterOptions> {
+        filterName: 'Amount',
+        filterDataType: 'number',
+        filterField: FilterField.AMOUNT
+      },
+      <FilterOptions> {
+        filterName: 'Expense date',
+        filterDataType: 'Date',
+        filterField: FilterField.EXPENSE_DATE
+      },
+      <FilterOptions> {
+        filterName: 'Description',
+        filterDataType: 'string',
+        filterField: FilterField.DESCRIPTION
+      },
+      <FilterOptions> {
+        filterName: 'Expense category',
+        filterDataType: 'string',
+        filterField: FilterField.EXPENSE_CATEGORY
+      },
+      <FilterOptions> {
+        filterName: 'Credit Card Number',
+        filterDataType: 'string',
+        filterField: FilterField.CREDIT_CARD,
+        pattern: PATTERNS.CREDIT_CARD,
+        errorMessage: 'Invalid credit card number, credit card should be 15,16 digits long',
+        containsSearchPattern: PATTERNS.CREDIT_CARD_CONTAINS_PATTERN
+      },
+      <FilterOptions> {
+        filterName: 'IBAN',
+        filterDataType: 'string',
+        filterField: FilterField.BANK_ACCOUNT,
+        pattern: PATTERNS.IBAN,
+        errorMessage: 'Invalid IBAN number',
+        containsSearchPattern: PATTERNS.IBAN_CONTAINS_PATTERN
+      },
+      <FilterOptions> {
+        filterName: 'Form of payment',
+        filterDataType: 'string',
+        filterField: FilterField.FORM_OF_PAYMENT
+      }
+    ]
+  }
+
+  applyFilters(filterDtos: FilterDto[]): void {
+    console.log(filterDtos);
+  }
 }

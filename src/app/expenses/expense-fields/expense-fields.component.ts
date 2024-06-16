@@ -8,6 +8,7 @@ import {UserProfile} from "../../shared/user-profile/user-profile.model";
 import {Utils} from "../../shared/utils/utils";
 import {ExpensesComponent} from "../expenses.component";
 import {AbstractIncomeExpenseFieldsComponent} from "../../shared/AbstractIncomeExpenseFieldsComponent";
+import {PATTERNS} from "../../shared/patterns";
 
 @Component({
   selector: 'app-expense-fields',
@@ -15,10 +16,8 @@ import {AbstractIncomeExpenseFieldsComponent} from "../../shared/AbstractIncomeE
   styleUrls: ['./expense-fields.component.css']
 })
 export class ExpenseFieldsComponent extends AbstractIncomeExpenseFieldsComponent {
-  static readonly NUMBERS_ONLY_PATTERN: string = '^(0|[1-9][0-9]*)(\\.[0-9]{1,3})?$';
-
   formOfPayments: FormOfPayment[] = [FormOfPayment.CARD, FormOfPayment.CASH, FormOfPayment.BANK_TRANSFER];
-  amountFormControl: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.pattern(ExpenseFieldsComponent.NUMBERS_ONLY_PATTERN)] );
+  amountFormControl: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.pattern(PATTERNS.NUMBERS_ONLY)] );
   expenseDateFormControl: FormControl = new FormControl('', [Validators.required]);
   descriptionFormControl: FormControl = new FormControl('');
   expenseCategoryFormControl: FormControl = new FormControl('');

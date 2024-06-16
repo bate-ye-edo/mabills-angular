@@ -1,5 +1,5 @@
 import {finalize, Observable} from "rxjs";
-import { Chart } from "../chart-data.model";
+import {Chart} from "../chart-data.model";
 import {ChartService} from "./chart-service";
 import {HttpService} from "@core/http.service";
 

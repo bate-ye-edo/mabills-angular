@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "@core/authentication/auth.service";
 import {ShowModalService} from "../shared/show-modal.service";
-import {
-  ExpenseCategoriesComponent
-} from "../expenses-categories/expense-categories.component";
+import {ExpenseCategoriesComponent} from "../expenses-categories/expense-categories.component";
 import {NO_BACK_DROP_MODAL} from "../shared/modal-options";
 
 @Component({

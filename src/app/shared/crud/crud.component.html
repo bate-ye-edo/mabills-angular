@@ -2,11 +2,27 @@
   <mat-card-header>
     <div class="header-button-to-end w-100">
       <mat-card-title class="vertical-centered">{{ title }}</mat-card-title>
-      <button mat-icon-button (click)="add()" *ngIf="addAction">
-        <mat-icon>add</mat-icon>
-      </button>
+      <div>
+        <button
+          mat-icon-button
+          (click)="isCollapsed = !isCollapsed"
+          *ngIf="withFilters()"
+        >
+          <mat-icon>filter_alt</mat-icon>
+        </button>
+        <button mat-icon-button (click)="add()" *ngIf="addAction">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-card-header>
+  <app-filters
+    [isCollapsed] = "isCollapsed"
+    [filters] = "filters"
+    (applyFilters)="apply($event)"
+    class="mt-1 mb-1"
+    *ngIf="withFilters()"
+  ></app-filters>
   <mat-card-content class="overflow-overlay">
     <table class="table table-striped">
       <thead *ngIf="dataSource != undefined">

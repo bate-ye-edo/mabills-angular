@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BankAccount} from "./bank-account.model";
 import {finalize, Observable, Subject, tap} from "rxjs";
 import {ENVIRONMENT} from "../../../environment/environment";

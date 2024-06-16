@@ -8,6 +8,7 @@ import {Utils} from "../../shared/utils/utils";
 import {IncomesComponent} from "../incomes.component";
 import {Income} from "../income.model";
 import {AbstractIncomeExpenseFieldsComponent} from "../../shared/AbstractIncomeExpenseFieldsComponent";
+import {PATTERNS} from "../../shared/patterns";
 
 @Component({
   selector: 'app-income-fields',
@@ -15,7 +16,7 @@ import {AbstractIncomeExpenseFieldsComponent} from "../../shared/AbstractIncomeE
   styleUrls: ['./income-fields.component.css']
 })
 export class IncomeFieldsComponent extends AbstractIncomeExpenseFieldsComponent {
-  amountFormControl: FormControl = new FormControl('', [Validators.required]);
+  amountFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern(PATTERNS.NUMBERS_ONLY)]);
   incomeDateFormControl: FormControl = new FormControl('', [Validators.required]);
   descriptionFormControl: FormControl = new FormControl('');
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ChartOptionsServiceWrapper} from "./chart-options-service-wrapper";
 import {DEFAULT_CHART_OPTIONS} from "./chart-options.model";
 import {ChartServiceFactory} from "./chart-services/chart-service-factory";

@@ -3,6 +3,8 @@ import {DataModel} from "./data.model";
 import {DataFormatterService} from "./data-formatter.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable} from "rxjs";
+import {FilterOptions} from "../../filters/filter-options";
+import {FilterDto} from "../filters/filter.dto";
 
 @Component({
   selector: 'app-crud',
@@ -17,12 +19,17 @@ export class CrudComponent {
   @Input() updateAction: boolean = true;
   @Input() deleteAction: boolean = true;
   @Input() dateFormat: string = '';
+  @Input() hasFilters: boolean;
+  @Input() filters: FilterOptions[] = [];
+
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() applyFilters: EventEmitter<any> = new EventEmitter();
   dataSource: DataModel;
   hasData: boolean = false;
   colSpan: number = 0;
+  isCollapsed: boolean = true;
 
   constructor(private dataFormatter: DataFormatterService, private ngbActiveModal: NgbActiveModal) {
   }
@@ -50,6 +57,10 @@ export class CrudComponent {
     this.delete.emit(item)
   }
 
+  apply(filterDtos: FilterDto[]): void {
+    this.applyFilters.emit(filterDtos);
+  }
+
   getDataFormatted(itemElement: any): string {
     return this.dataFormatter.formatData(itemElement, this.dateFormat);
   }
@@ -72,13 +83,16 @@ export class CrudComponent {
       return item[fieldName];
     }
     let value: any = item;
-    for(let i: number = 0; i < fieldNames.length; i++) {
-      if(value === null || value === undefined) {
+    for(const element of fieldNames) {
+      if (value === null || value === undefined) {
         return '';
       }
-      value = value[fieldNames[i]];
+      value = value[element];
     }
     return value;
   }
 
+  withFilters(): boolean {
+    return this.hasFilters && this.filters.length > 0;
+  }
 }
