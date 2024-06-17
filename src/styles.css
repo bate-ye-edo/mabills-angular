@@ -22,3 +22,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-input-element {
   text-overflow: ellipsis;
 }
+
+.header-button-to-end {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

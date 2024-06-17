@@ -34,18 +34,14 @@ export class AbstractChartComponent implements OnInit {
     if(this.defaultGroupBy) {
       this.chartService.setGroupBy(this.defaultGroupBy);
     }
+    this.subscribeToChartChanges();
     this.getChartData();
   }
 
-  protected getChartData() {
+  protected getChartData(): void {
     if(this.chartService) {
       this.chartService.getChartData()
-        .subscribe((data: Chart) => {
-          if(this.chartOptionsServiceWrapper.generateColor) {
-            this.generateColors(data.data);
-          }
-          this.chart = data;
-        });
+        .subscribe({});
     }
   }
 
@@ -60,7 +56,7 @@ export class AbstractChartComponent implements OnInit {
     return '';
   }
 
-  getGroupByLabel(groupBy: string) {
+  getGroupByLabel(groupBy: string): string {
     return ChartGroupByLabel[groupBy];
   }
 
@@ -76,4 +72,14 @@ export class AbstractChartComponent implements OnInit {
     return materialColorGenerator.convertStringToMaterialColor(str);
   }
 
+  private subscribeToChartChanges(): void {
+    if(this.chartService) {
+      this.chartService.chart$.subscribe((data: Chart) => {
+        if(this.chartOptionsServiceWrapper.generateColor) {
+          this.generateColors(data.data);
+        }
+        this.chart = data;
+      });
+    }
+  }
 }

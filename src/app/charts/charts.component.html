@@ -1,48 +1,62 @@
-<div class="row">
-  <div class="col-lg-6 col-md-12 col-sm-12">
-    <app-bar-chart
-      [chartOptionsServiceWrapper]="expensesChartOptionsServiceWrapper"
-      class="chart-height"
+<mat-card>
+  <mat-card-header class="header-button-to-end w-100">
+    <mat-card-title>Charts</mat-card-title>
+    <button
+      mat-icon-button
+      (click)="isCollapsed = !isCollapsed"
     >
-    </app-bar-chart>
-  </div>
-  <div class="col-lg-6 col-md-12 col-sm-12">
-    <app-bar-chart
-      [chartOptionsServiceWrapper]="incomeChartOptionsServiceWrapper"
-      class="chart-height"
-    >
-    </app-bar-chart>
-  </div>
-</div>
-
-
-<div class="row mt-3">
-    <app-multiple-data-bar-chart
-      [chartOptionsServiceWrapper]="expenseIncomeByDateSeriesChartOptionsServiceWrapper"
-      class="chart-height"
-    >
-    </app-multiple-data-bar-chart>
-</div>
-
-<div class="row mt-3">
-  <div class="col-lg-6 col-md-12 col-sm-12">
-    <app-pie-chart
-      [chartOptionsServiceWrapper]="expensesPieChartOptionsServiceWrapper"
-      [groupByList]="[ExpenseChartGroupBy.EXPENSE_CATEGORY, ExpenseChartGroupBy.EXPENSE_CREDIT_CARD, ExpenseChartGroupBy.EXPENSE_FORM_OF_PAYMENT, ExpenseChartGroupBy.EXPENSE_BANK_ACCOUNT]"
-      [defaultGroupBy]="ExpenseChartGroupBy.EXPENSE_CREDIT_CARD"
-      class="chart-height"
-    >
-    </app-pie-chart>
-  </div>
-
-  <div class="col-lg-6 col-md-12 col-sm-12">
-    <app-pie-chart
-      [chartOptionsServiceWrapper]="incomesPieChartOptionsServiceWrapper"
-      [groupByList]="[IncomeChartGroupBy.INCOME_CREDIT_CARD, IncomeChartGroupBy.INCOME_BANK_ACCOUNT]"
-      [defaultGroupBy]="IncomeChartGroupBy.INCOME_CREDIT_CARD"
-      class="chart-height"
-    >
-    </app-pie-chart>
-  </div>
-</div>
-
+      <mat-icon>filter_alt</mat-icon>
+    </button>
+  </mat-card-header>
+  <app-filters
+    [isCollapsed]="isCollapsed"
+    [filters]="filterOptions"
+    (applyFilters)="applyFilters($event)"
+    class="mt-1 mb-1">
+  </app-filters>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <app-bar-chart
+          [chartOptionsServiceWrapper]="expensesChartOptionsServiceWrapper"
+          class="chart-height"
+        >
+        </app-bar-chart>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <app-bar-chart
+          [chartOptionsServiceWrapper]="incomeChartOptionsServiceWrapper"
+          class="chart-height"
+        >
+        </app-bar-chart>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <app-multiple-data-bar-chart
+        [chartOptionsServiceWrapper]="expenseIncomeByDateSeriesChartOptionsServiceWrapper"
+        class="chart-height"
+      >
+      </app-multiple-data-bar-chart>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <app-pie-chart
+          [chartOptionsServiceWrapper]="expensesPieChartOptionsServiceWrapper"
+          [groupByList]="[ExpenseChartGroupBy.EXPENSE_CATEGORY, ExpenseChartGroupBy.EXPENSE_CREDIT_CARD, ExpenseChartGroupBy.EXPENSE_FORM_OF_PAYMENT, ExpenseChartGroupBy.EXPENSE_BANK_ACCOUNT]"
+          [defaultGroupBy]="ExpenseChartGroupBy.EXPENSE_CREDIT_CARD"
+          class="chart-height"
+        >
+        </app-pie-chart>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <app-pie-chart
+          [chartOptionsServiceWrapper]="incomesPieChartOptionsServiceWrapper"
+          [groupByList]="[IncomeChartGroupBy.INCOME_CREDIT_CARD, IncomeChartGroupBy.INCOME_BANK_ACCOUNT]"
+          [defaultGroupBy]="IncomeChartGroupBy.INCOME_CREDIT_CARD"
+          class="chart-height"
+        >
+        </app-pie-chart>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

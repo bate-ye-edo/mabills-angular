@@ -11,9 +11,8 @@ import {TwoChoicesModalOptions} from "../shared/two-options-modal/two-choices-mo
 import {DateFormat} from "../shared/utils/date-format";
 import {ModalProviderModel} from "../shared/modal-provider.model";
 import {FilterOptions} from "../filters/filter-options";
-import {FilterField} from "../shared/filters/filter-field";
-import {PATTERNS} from "../shared/patterns";
 import {FilterDto} from "../shared/filters/filter.dto";
+import {DEFAULT_FILTERS} from "../shared/filters/default-filters";
 
 @Component({
   selector: 'app-incomes',
@@ -146,39 +145,7 @@ export class IncomesComponent implements OnInit {
   }
 
   private buildFiltersOptions(): void {
-    this.filters = [
-      <FilterOptions> {
-        filterName: 'Amount',
-        filterDataType: 'number',
-        filterField: FilterField.AMOUNT
-      },
-      <FilterOptions> {
-        filterName: 'Income date',
-        filterDataType: 'Date',
-        filterField: FilterField.INCOME_DATE
-      },
-      <FilterOptions> {
-        filterName: 'Description',
-        filterDataType: 'string',
-        filterField: FilterField.DESCRIPTION
-      },
-      <FilterOptions> {
-        filterName: 'Credit Card Number',
-        filterDataType: 'string',
-        filterField: FilterField.CREDIT_CARD,
-        pattern: PATTERNS.CREDIT_CARD,
-        errorMessage: 'Invalid credit card number, credit card should be 15,16 digits long',
-        containsSearchPattern: PATTERNS.CREDIT_CARD_CONTAINS_PATTERN
-      },
-      <FilterOptions> {
-        filterName: 'IBAN',
-        filterDataType: 'string',
-        filterField: FilterField.BANK_ACCOUNT,
-        pattern: PATTERNS.IBAN,
-        errorMessage: 'Invalid IBAN number',
-        containsSearchPattern: PATTERNS.IBAN_CONTAINS_PATTERN
-      }
-    ];
+    this.filters = [ DEFAULT_FILTERS.Amount, DEFAULT_FILTERS.IncomeDate, DEFAULT_FILTERS.Description, DEFAULT_FILTERS.CreditCard, DEFAULT_FILTERS.IBAN ];
   }
 
   applyFilters(filters: FilterDto[]): void {

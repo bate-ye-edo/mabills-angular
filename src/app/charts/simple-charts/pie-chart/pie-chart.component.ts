@@ -12,6 +12,7 @@ export class PieChartComponent extends AbstractChartComponent {
   doughnutFormControl: FormControl = new FormControl('false');
   doughnut: boolean = false;
   groupByFormControl: FormControl;
+
   constructor() {
     super();
   }
@@ -31,7 +32,11 @@ export class PieChartComponent extends AbstractChartComponent {
 
   changeGroupBy(): void {
     this.chartService.setGroupBy(this.groupByFormControl.value);
-    this.getChartData();
+    if(this.chartService.hasFilters()){
+      this.chartService.applyFilters(this.chartService.getFilters());
+    } else {
+      this.getChartData();
+    }
     this.title = ChartTitlesByGroupByOption[this.groupByFormControl.value];
   }
 }

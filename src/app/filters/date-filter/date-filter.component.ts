@@ -35,6 +35,13 @@ export class DateFilterComponent extends AbstractFilterComponent {
     super();
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.filterTypeFormControl.valueChanges.subscribe({
+      next: (value) => {
+        if(value !== FilterComparisons.BETWEEN) {
+          this.hasBetween = false;
+        }
+      }
+    });
   }
 
   onDateChanged(): void {

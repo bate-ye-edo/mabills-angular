@@ -1,8 +1,3 @@
-.header-button-to-end {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 
 .vertical-centered {
   margin-top: auto;

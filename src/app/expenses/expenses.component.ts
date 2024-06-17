@@ -12,9 +12,8 @@ import {ExpenseCategoriesService} from "../shared/user-profile/expense-categorie
 import {ExpenseCategory} from "../shared/user-profile/expense-category.model";
 import {DateFormat} from "../shared/utils/date-format";
 import {FilterOptions} from "../filters/filter-options";
-import {FilterField} from "../shared/filters/filter-field";
-import {PATTERNS} from "../shared/patterns";
 import {FilterDto} from "../shared/filters/filter.dto";
+import {DEFAULT_FILTERS} from "../shared/filters/default-filters";
 
 @Component({
   selector: 'app-expenses',
@@ -163,49 +162,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   private initializeFilters(): void {
-    this.filters = [
-      <FilterOptions> {
-        filterName: 'Amount',
-        filterDataType: 'number',
-        filterField: FilterField.AMOUNT
-      },
-      <FilterOptions> {
-        filterName: 'Expense date',
-        filterDataType: 'Date',
-        filterField: FilterField.EXPENSE_DATE
-      },
-      <FilterOptions> {
-        filterName: 'Description',
-        filterDataType: 'string',
-        filterField: FilterField.DESCRIPTION
-      },
-      <FilterOptions> {
-        filterName: 'Expense category',
-        filterDataType: 'string',
-        filterField: FilterField.EXPENSE_CATEGORY
-      },
-      <FilterOptions> {
-        filterName: 'Credit Card Number',
-        filterDataType: 'string',
-        filterField: FilterField.CREDIT_CARD,
-        pattern: PATTERNS.CREDIT_CARD,
-        errorMessage: 'Invalid credit card number, credit card should be 15,16 digits long',
-        containsSearchPattern: PATTERNS.CREDIT_CARD_CONTAINS_PATTERN
-      },
-      <FilterOptions> {
-        filterName: 'IBAN',
-        filterDataType: 'string',
-        filterField: FilterField.BANK_ACCOUNT,
-        pattern: PATTERNS.IBAN,
-        errorMessage: 'Invalid IBAN number',
-        containsSearchPattern: PATTERNS.IBAN_CONTAINS_PATTERN
-      },
-      <FilterOptions> {
-        filterName: 'Form of payment',
-        filterDataType: 'string',
-        filterField: FilterField.FORM_OF_PAYMENT
-      }
-    ]
+    this.filters = [ DEFAULT_FILTERS.Amount, DEFAULT_FILTERS.ExpenseDate, DEFAULT_FILTERS.Description, DEFAULT_FILTERS.ExpenseCategory, DEFAULT_FILTERS.CreditCard, DEFAULT_FILTERS.IBAN, DEFAULT_FILTERS.FormOfPayment ];
   }
 
   applyFilters(filterDtos: FilterDto[]): void {

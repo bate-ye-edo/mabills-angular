@@ -13,21 +13,27 @@ export class AbstractSeriesChartComponent extends AbstractChartComponent {
     super();
   }
 
-  override ngOnInit() {
+  override ngOnInit(): void {
     this.seriesChartService = this.chartOptionsServiceWrapper.seriesChartService;
+    this.subscribeToSeriesChartChanges();
     super.ngOnInit();
   }
 
   override getChartData(): void {
     if(this.seriesChartService) {
       this.seriesChartService.getSeriesData()
-        .subscribe((data: SeriesChart) => {
-          this.seriesChart = data;
-        });
+        .subscribe();
     }
   }
 
   override showChart(): boolean {
     return this.seriesChart && this.seriesChart.series.length > 0;
+  }
+
+  private subscribeToSeriesChartChanges() {
+    this.seriesChartService.seriesChart$
+      .subscribe((seriesChart: SeriesChart) => {
+        this.seriesChart = seriesChart;
+      });
   }
 }

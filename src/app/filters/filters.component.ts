@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilterOptions} from "./filter-options";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FilterDto} from "../shared/filters/filter.dto";
+import {FilterComparisons} from "../shared/filters/filter-comparisons";
 
 @Component({
   selector: 'app-filters',
@@ -71,10 +72,25 @@ export class FiltersComponent implements OnInit {
     const filterDtos: FilterDto[] = [];
     Object.keys(this.filterFormGroup.controls).forEach(key => {
       const filterFormControl = this.filterFormGroup.get(key)?.value;
-      if(filterFormControl) {
+      if(filterFormControl?.filterValue) {
         filterDtos.push(filterFormControl);
       }
     });
     return filterDtos;
+  }
+
+  clear(): void {
+    Object.keys(this.filterFormGroup.controls).forEach(key => {
+        this.filterFormGroup.get(key).setValue(<FilterDto>{
+          filterComparison: FilterComparisons.EQUAL,
+          filterField: this.filters.find(filter => filter.filterName === key)?.filterField,
+          filterValue: null,
+        });
+        this.filterFormGroup.get(key).setValidators(null);
+        this.filterFormGroup.get(key).setErrors(null);
+        this.filterFormGroup.get(key).updateValueAndValidity();
+    })
+    this.filterFormGroup.setErrors(null);
+    this.filterFormGroup.updateValueAndValidity();
   }
 }

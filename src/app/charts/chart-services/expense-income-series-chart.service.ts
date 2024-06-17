@@ -1,24 +1,27 @@
 import {SeriesChartService} from "./chart-service";
-import {Observable} from "rxjs";
-import {SeriesChart} from "../chart-data.model";
 import {CHART_ENDPOINT} from "./chart-endpoints";
 import {ChartCategory} from "./chart-category";
-import {HttpService} from "@core/http.service";
 import {Injectable} from "@angular/core";
-import {AbstractChartService} from "./AbstractChartService";
+import {AbstractSeriesChartService} from "./AbstractSeriesChartService";
+import {FilterDto} from "../../shared/filters/filter.dto";
+import {FilterChartDto} from "./filter-chart-dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExpenseIncomeSeriesChartService extends AbstractChartService implements SeriesChartService {
+export class ExpenseIncomeSeriesChartService extends AbstractSeriesChartService implements SeriesChartService {
   static readonly END_POINT: string = CHART_ENDPOINT + "/" + ChartCategory.EXPENSE_INCOME_SERIES;
 
-  constructor(private http: HttpService) {
-    super(http);
+  constructor() {
+    super();
     this.chartEndpoint = ExpenseIncomeSeriesChartService.END_POINT;
   }
 
-  getSeriesData(): Observable<SeriesChart> {
-    return this.http.get(ExpenseIncomeSeriesChartService.END_POINT);
+  override buildFilterChartDto(filters: FilterDto[]): FilterChartDto {
+    const filterChartDto = super.buildFilterChartDto(filters);
+    return <FilterChartDto> {
+      ...filterChartDto,
+      chartCategory: ChartCategory.EXPENSE_INCOME_SERIES
+    }
   }
 }

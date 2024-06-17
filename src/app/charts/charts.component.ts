@@ -5,6 +5,9 @@ import {ChartServiceFactory} from "./chart-services/chart-service-factory";
 import {ChartCategory} from "./chart-services/chart-category";
 import {ExpenseChartGroupBy} from "./expense-chart-group-by";
 import {IncomeChartGroupBy} from "./income-chart-group-by";
+import {FilterOptions} from "../filters/filter-options";
+import {DEFAULT_FILTERS} from "../shared/filters/default-filters";
+import {FilterDto} from "../shared/filters/filter.dto";
 
 @Component({
   selector: 'app-charts',
@@ -20,6 +23,9 @@ export class ChartsComponent {
 
   protected readonly IncomeChartGroupBy = IncomeChartGroupBy;
   protected readonly ExpenseChartGroupBy = ExpenseChartGroupBy;
+  protected filterOptions: FilterOptions[] = [];
+
+  isCollapsed: boolean = true;
 
   constructor(private chartServiceFactory: ChartServiceFactory) {
     this.initializeExpenseChartOptionsServiceWrapper();
@@ -27,6 +33,7 @@ export class ChartsComponent {
     this.initializeExpenseIncomeByDateSeriesChartOptionsServiceWrapper();
     this.initializeExpensePieChartOptionsServiceWrapper();
     this.initializeIncomesPieChartOptionsServiceWrapper();
+    this.initializeFilterOptions();
   }
 
   private initializeExpenseChartOptionsServiceWrapper(): void {
@@ -105,5 +112,24 @@ export class ChartsComponent {
       groupBy: IncomeChartGroupBy.INCOME_CREDIT_CARD,
       generateColor: true
     }
+  }
+
+  private initializeFilterOptions(): void {
+    this.filterOptions = [ DEFAULT_FILTERS.Amount, DEFAULT_FILTERS.ExpenseDate, DEFAULT_FILTERS.CreditCard, DEFAULT_FILTERS.IncomeDate, DEFAULT_FILTERS.IBAN, DEFAULT_FILTERS.ExpenseCategory, DEFAULT_FILTERS.FormOfPayment ];
+  }
+
+  applyFilters(filterDtos: FilterDto[]): void {
+    if(filterDtos.length == 0) {
+      this.expensesChartOptionsServiceWrapper.chartService.clearFilters();
+      this.incomeChartOptionsServiceWrapper.chartService.clearFilters();
+      this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.clearFilters(); // TODO: this is not working, investigate why
+      this.expensesPieChartOptionsServiceWrapper.chartService.clearFilters();
+      this.incomesPieChartOptionsServiceWrapper.chartService.clearFilters();
+    }
+    this.expensesChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
+    this.incomeChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
+    this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.applyFilters(filterDtos);
+    this.expensesPieChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
+    this.incomesPieChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
   }
 }

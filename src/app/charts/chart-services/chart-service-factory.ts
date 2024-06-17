@@ -9,28 +9,24 @@ import {ExpenseIncomeSeriesChartService} from "./expense-income-series-chart.ser
     providedIn: 'root'
 })
 export class ChartServiceFactory {
-  constructor(private expensesChartService: ExpensesChartService,
-              private incomesChartService: IncomesChartService,
-              private expenseIncomeByDateSeriesChartService: ExpenseIncomeSeriesChartService) {
+  constructor() {
   }
 
   createChartService(chartDataType: ChartCategory): ChartService {
     switch (chartDataType) {
         case ChartCategory.EXPENSES:
-          return this.expensesChartService;
+          return new ExpensesChartService();
         case ChartCategory.INCOMES:
-          return this.incomesChartService;
+          return new IncomesChartService();
         default:
           throw new Error('Invalid chart data type');
     }
   }
 
   createSeriesChartService(chartDataType: ChartCategory): SeriesChartService {
-    switch (chartDataType) {
-        case ChartCategory.EXPENSE_INCOME_SERIES:
-          return this.expenseIncomeByDateSeriesChartService;
-        default:
-          throw new Error('Invalid chart data type');
+    if(chartDataType === ChartCategory.EXPENSE_INCOME_SERIES) {
+      return new ExpenseIncomeSeriesChartService();
     }
+    throw new Error('Invalid chart data type');
   }
 }
