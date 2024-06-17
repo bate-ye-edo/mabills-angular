@@ -209,6 +209,12 @@ export class ExpensesComponent implements OnInit {
   }
 
   applyFilters(filterDtos: FilterDto[]): void {
-    console.log(filterDtos);
+    this.expensesService.applyExpenseFilters(filterDtos)
+      .subscribe({
+        next: expenses => {
+          this.expenses.data = expenses;
+          this.expensesSubject.next(this.expenses);
+        }
+      })
   }
 }

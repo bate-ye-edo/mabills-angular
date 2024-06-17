@@ -37,7 +37,7 @@ export class ShowModalService {
     };
   }
 
-  private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptions) {
+  private setTimeoutIfNeeded(modalOptions: TwoChoicesModalOptions): void {
     if(modalOptions.autoCloseOptions){
       setTimeout(()=>{
         modalOptions.autoCloseOptions.closeAction();

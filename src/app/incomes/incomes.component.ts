@@ -13,6 +13,7 @@ import {ModalProviderModel} from "../shared/modal-provider.model";
 import {FilterOptions} from "../filters/filter-options";
 import {FilterField} from "../shared/filters/filter-field";
 import {PATTERNS} from "../shared/patterns";
+import {FilterDto} from "../shared/filters/filter.dto";
 
 @Component({
   selector: 'app-incomes',
@@ -178,5 +179,15 @@ export class IncomesComponent implements OnInit {
         containsSearchPattern: PATTERNS.IBAN_CONTAINS_PATTERN
       }
     ];
+  }
+
+  applyFilters(filters: FilterDto[]): void {
+    this.incomesService.applyIncomeFilters(filters)
+      .subscribe({
+        next: (incomes: Income[]) => {
+          this.incomes.data = incomes;
+          this.dataModelSubject.next(this.incomes);
+        }
+      });
   }
 }

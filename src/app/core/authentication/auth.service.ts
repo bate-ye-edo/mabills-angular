@@ -11,6 +11,7 @@ import {ShowModalService} from "../../shared/show-modal.service";
 import {TwoChoicesModalOptions} from "../../shared/two-options-modal/two-choices-modal.options";
 import {NgbModalOptions} from "@ng-bootstrap/ng-bootstrap";
 import {NO_BACK_DROP_MODAL} from "../../shared/modal-options";
+import {TOKEN_KEY} from "@core/authentication/token-key";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,6 @@ export class AuthService {
   static readonly LOGOUT_END_POINT = ENVIRONMENT.SERVICE+'/users/logout';
   static readonly REGISTER_END_POINT = ENVIRONMENT.SERVICE+'/users/register';
   static readonly REFRESH_TOKEN_END_POINT = ENVIRONMENT.SERVICE+'/users/refresh-token';
-  static readonly TOKEN_KEY: string = 'token';
   private refreshTokenTimer: number = undefined;
   private authenticatedSubject: Subject<boolean> = new Subject<boolean>();
   authenticatedObservable: Observable<boolean> = this.authenticatedSubject.asObservable();
@@ -45,13 +45,13 @@ export class AuthService {
 
   getToken(): string {
     if(this.isAuthenticated()){
-      return localStorage.getItem(AuthService.TOKEN_KEY);
+      return localStorage.getItem(TOKEN_KEY);
     }
     return undefined;
   }
 
   isAuthenticated(): boolean {
-    let token: string = localStorage.getItem(AuthService.TOKEN_KEY);
+    let token: string = localStorage.getItem(TOKEN_KEY);
     if(token && this.jwtDecoder.isNotExpired(token)){
       this.authenticatedSubject.next(true);
       return true;
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   private processSuccessLogout(): void {
-    localStorage.removeItem(AuthService.TOKEN_KEY)
+    localStorage.removeItem(TOKEN_KEY)
     this.authenticatedSubject.next(false);
     if(this.refreshTokenTimer){
       clearTimeout(this.refreshTokenTimer);
@@ -112,7 +112,7 @@ export class AuthService {
   }
 
   private setTokenAndTimer(token: TokenDto): void {
-    localStorage.setItem(AuthService.TOKEN_KEY, token.token);
+    localStorage.setItem(TOKEN_KEY, token.token);
     this.setRefreshTokenTimer();
   }
 

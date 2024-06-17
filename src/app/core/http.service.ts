@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Error} from "@core/error.model";
 import {ShowLoadingService} from "@core/show-loading.service";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {TOKEN_KEY} from "@core/authentication/token-key";
 
 @Injectable({
   providedIn: 'root',
@@ -134,6 +135,7 @@ export class HttpService {
     let error: Error;
     if (response.status === HttpService.UNAUTHORIZED) {
       this.showError('Unauthorized');
+      localStorage.removeItem(TOKEN_KEY);
       this.router.navigate(['']).then();
       return EMPTY;
     } else if (response.status === HttpService.CONNECTION_REFUSE) {
