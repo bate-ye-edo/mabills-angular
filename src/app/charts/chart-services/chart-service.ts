@@ -15,4 +15,5 @@ export interface ChartService {
 export interface SeriesChartService extends ChartService {
   seriesChart$: Observable<SeriesChart>;
   getSeriesData(): Observable<SeriesChart>;
+  applySeriesFilters(filters: FilterDto[]): void;
 }

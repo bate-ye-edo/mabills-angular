@@ -122,13 +122,13 @@ export class ChartsComponent {
     if(filterDtos.length == 0) {
       this.expensesChartOptionsServiceWrapper.chartService.clearFilters();
       this.incomeChartOptionsServiceWrapper.chartService.clearFilters();
-      this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.clearFilters(); // TODO: this is not working, investigate why
+      this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.clearFilters();
       this.expensesPieChartOptionsServiceWrapper.chartService.clearFilters();
       this.incomesPieChartOptionsServiceWrapper.chartService.clearFilters();
     }
     this.expensesChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
     this.incomeChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
-    this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.applyFilters(filterDtos);
+    this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.applySeriesFilters(filterDtos);
     this.expensesPieChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
     this.incomesPieChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
   }

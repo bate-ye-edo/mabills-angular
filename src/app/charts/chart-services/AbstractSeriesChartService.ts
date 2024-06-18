@@ -16,6 +16,15 @@ export abstract class AbstractSeriesChartService extends AbstractChartService im
     super(inject(HttpService));
   }
 
+  applySeriesFilters(filters:FilterDto[]): void {
+    if(filters.length == 0) {
+      this.getSeriesData().subscribe();
+    } else {
+      this.filters = filters;
+      this.getChartDataWithFilters(filters);
+    }
+  };
+
   getSeriesData(): Observable<SeriesChart> {
     return this.httpService.get(this.chartEndpoint)
       .pipe(
