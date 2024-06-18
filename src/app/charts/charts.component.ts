@@ -24,7 +24,6 @@ export class ChartsComponent {
   protected readonly IncomeChartGroupBy = IncomeChartGroupBy;
   protected readonly ExpenseChartGroupBy = ExpenseChartGroupBy;
   protected filterOptions: FilterOptions[] = [];
-
   isCollapsed: boolean = true;
 
   constructor(private chartServiceFactory: ChartServiceFactory) {
@@ -120,12 +119,20 @@ export class ChartsComponent {
 
   applyFilters(filterDtos: FilterDto[]): void {
     if(filterDtos.length == 0) {
-      this.expensesChartOptionsServiceWrapper.chartService.clearFilters();
-      this.incomeChartOptionsServiceWrapper.chartService.clearFilters();
-      this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.clearFilters();
-      this.expensesPieChartOptionsServiceWrapper.chartService.clearFilters();
-      this.incomesPieChartOptionsServiceWrapper.chartService.clearFilters();
+      this.clearFiltersInAllServices();
     }
+    this.applyFiltersForAllServices(filterDtos);
+  }
+
+  private clearFiltersInAllServices(): void {
+    this.expensesChartOptionsServiceWrapper.chartService.clearFilters();
+    this.incomeChartOptionsServiceWrapper.chartService.clearFilters();
+    this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.clearFilters();
+    this.expensesPieChartOptionsServiceWrapper.chartService.clearFilters();
+    this.incomesPieChartOptionsServiceWrapper.chartService.clearFilters();
+  }
+
+  private applyFiltersForAllServices(filterDtos: FilterDto[]): void {
     this.expensesChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
     this.incomeChartOptionsServiceWrapper.chartService.applyFilters(filterDtos);
     this.expenseIncomeByDateSeriesChartOptionsServiceWrapper.seriesChartService.applySeriesFilters(filterDtos);
