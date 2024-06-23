@@ -1,4 +1,4 @@
-import {Component, inject, Inject, Optional} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Inject, Optional, ViewChild} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {UserProfileService} from "../../shared/user-profile/user-profile.service";
 import {TwoChoicesModalOptionsSecret} from "../../shared/two-options-modal/two-choices-modal.options";
@@ -15,10 +15,12 @@ import {PATTERNS} from "../../shared/patterns";
   templateUrl: './income-fields.component.html',
   styleUrls: ['./income-fields.component.css']
 })
-export class IncomeFieldsComponent extends AbstractIncomeExpenseFieldsComponent {
+export class IncomeFieldsComponent extends AbstractIncomeExpenseFieldsComponent implements AfterViewInit {
   amountFormControl: FormControl = new FormControl('', [Validators.required, Validators.pattern(PATTERNS.NUMBERS_ONLY)]);
   incomeDateFormControl: FormControl = new FormControl('', [Validators.required]);
   descriptionFormControl: FormControl = new FormControl('');
+
+  @ViewChild('amount', {static:true}) amountInput: ElementRef;
 
   constructor(private userProfileService: UserProfileService, @Optional() @Inject(IncomesComponent.INCOME_INJECTION_NAME) private income: Income) {
     super(inject(TwoChoicesModalOptionsSecret), inject(NgbActiveModal));
@@ -26,6 +28,12 @@ export class IncomeFieldsComponent extends AbstractIncomeExpenseFieldsComponent 
       next: (userProfile: UserProfile) => this.updateSelects(userProfile)
     });
     this.userProfileService.initializeUserProfile();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.amountInput.nativeElement.focus();
+    }, 100);
   }
 
   override confirm(): void {

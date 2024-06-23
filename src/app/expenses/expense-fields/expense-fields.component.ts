@@ -1,4 +1,4 @@
-import {Component, Inject, inject, Optional} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, inject, Optional, ViewChild} from '@angular/core';
 import {TwoChoicesModalOptionsSecret} from "../../shared/two-options-modal/two-choices-modal.options";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, Validators} from "@angular/forms";
@@ -15,13 +15,15 @@ import {PATTERNS} from "../../shared/patterns";
   templateUrl: './expense-fields.component.html',
   styleUrls: ['./expense-fields.component.css']
 })
-export class ExpenseFieldsComponent extends AbstractIncomeExpenseFieldsComponent {
+export class ExpenseFieldsComponent extends AbstractIncomeExpenseFieldsComponent implements AfterViewInit {
   formOfPayments: FormOfPayment[] = [FormOfPayment.CARD, FormOfPayment.CASH, FormOfPayment.BANK_TRANSFER];
   amountFormControl: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.pattern(PATTERNS.NUMBERS_ONLY)] );
   expenseDateFormControl: FormControl = new FormControl('', [Validators.required]);
   descriptionFormControl: FormControl = new FormControl('');
   expenseCategoryFormControl: FormControl = new FormControl('');
   formOfPaymentFormControl: FormControl = new FormControl('');
+
+  @ViewChild('amount', {static:true}) amountInput: ElementRef;
 
   constructor(private userProfileService: UserProfileService, @Optional() @Inject(ExpensesComponent.EXPENSE_INJECTION_NAME) private expense: Expense) {
     super(inject(TwoChoicesModalOptionsSecret), inject(NgbActiveModal));
@@ -30,6 +32,13 @@ export class ExpenseFieldsComponent extends AbstractIncomeExpenseFieldsComponent
     });
     this.userProfileService.initializeUserProfile();
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.amountInput.nativeElement.focus();
+    }, 100);
+  }
+
 
   override confirm(): void {
     this.activeModal.dismiss();

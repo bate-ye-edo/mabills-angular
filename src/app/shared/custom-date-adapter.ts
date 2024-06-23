@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 export class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date, displayFormat: Object): string {
         if (displayFormat === 'input') {
-            return moment(date).format('DD/MM/yyyy');
+            return moment(date).format('DD-MM-yyyy');
         }
         return date.toDateString();
     }
