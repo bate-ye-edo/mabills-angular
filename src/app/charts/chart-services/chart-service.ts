@@ -1,9 +1,11 @@
 import {Chart, SeriesChart} from "../chart-data.model";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {FilterDto} from "../../shared/filters/filter.dto";
 
 export interface ChartService {
   chart$: Observable<Chart>;
+  clearFiltersSubject: Subject<void>;
+  clearFilters$: Observable<void>;
   getChartData(): Observable<Chart>;
   setGroupBy(groupBy: string): void;
   applyFilters(filters: FilterDto[]): void;

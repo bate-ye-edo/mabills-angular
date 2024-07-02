@@ -36,6 +36,7 @@ export class AbstractChartComponent implements OnInit {
     }
     this.subscribeToChartChanges();
     this.getChartData();
+    this.subscribeToClearFilters();
   }
 
   protected getChartData(): void {
@@ -79,6 +80,14 @@ export class AbstractChartComponent implements OnInit {
           this.generateColors(data.data);
         }
         this.chart = data;
+      });
+    }
+  }
+
+  protected subscribeToClearFilters(): void {
+    if(this.chartService) {
+      this.chartService.clearFilters$.subscribe(() => {
+        this.getChartData();
       });
     }
   }

@@ -16,6 +16,8 @@ export abstract class AbstractChartService implements ChartService {
   protected filters: FilterDto[] = [];
   private chartSubject: Subject<Chart> = new Subject<Chart>();
   chart$: Observable<Chart> = this.chartSubject.asObservable();
+  clearFiltersSubject: Subject<void> = new Subject<void>();
+  clearFilters$: Observable<void> = this.clearFiltersSubject.asObservable();
 
   protected constructor(httpService: HttpService) {
     this.httpService = httpService;
@@ -23,7 +25,7 @@ export abstract class AbstractChartService implements ChartService {
 
   applyFilters(filters: FilterDto[]): void {
     if(filters.length == 0) {
-      this.getChartData().subscribe();
+      this.clearFiltersSubject.next();
     } else {
       this.filters = filters;
       this.getChartDataWithFilters(filters);

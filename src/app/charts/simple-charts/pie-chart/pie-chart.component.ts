@@ -39,4 +39,13 @@ export class PieChartComponent extends AbstractChartComponent {
     }
     this.title = ChartTitlesByGroupByOption[this.groupByFormControl.value];
   }
+
+  override subscribeToClearFilters(): void {
+    this.chartService.clearFilters$
+      .subscribe(() => {
+        const groupBy: string = this.groupByFormControl?.value ?? this.defaultGroupBy;
+        this.chartService.setGroupBy(groupBy);
+        this.getChartData();
+      });
+  }
 }
